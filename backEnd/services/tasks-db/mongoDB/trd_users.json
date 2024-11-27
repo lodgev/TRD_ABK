@@ -1,0 +1,12 @@
+[
+    {
+    "email": "john@doe.com",
+    "password": "pass",
+    "refreshtoken": null,
+    "createdat": "19:08:26.746",
+    "updatedat": null,
+    "lastsigninat": null,
+    "firstname": "John",
+    "lastname": "Doe"
+    }
+]
