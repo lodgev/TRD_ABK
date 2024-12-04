@@ -21,6 +21,10 @@ def fetch_trending_news():
     data = res.read()
     return json.loads(data.decode("utf-8"))
 
+def build_full_url(source_str, relative_url):
+    return f"https://www.{base_url}.com{relative_url}"
+
+
 # Interface Streamlit
 st.title("Actualités de Football en Direct")
 
@@ -36,7 +40,10 @@ if news_data and "response" in news_data and "news" in news_data["response"]:
         st.subheader(news["title"])  # Titre de l'article
         st.write(f"Source: {news.get('sourceStr', 'Non spécifiée')}")
         st.write(f"Date: {news['gmtTime']}")
-        st.write(f"[Lire l'article complet](https://{API_HOST}{news['page']['url']})", unsafe_allow_html=True)
+
+        full_url = build_full_url(news.get('sourceStr', ''), news['page']['url'])
+
+        st.write(f"[Lire l'article complet]({full_url})", unsafe_allow_html=True)
         st.write("---")  # Ligne de séparation
 else:
     st.write("Aucune actualité disponible pour le moment.")
