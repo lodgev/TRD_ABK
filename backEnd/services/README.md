@@ -4,6 +4,11 @@
 
 TODO:
 
+- les fichiers suivants n'ont pas d'effet. Ils sont donnés à titre d'exemple. Seuls les fichiers __./tasks-db/init.sql__ et __./auth-db/init.sql__ sont réellement utilisés pour initier chaque base de données Postgresql (auth-db et tasks-db):
+  - ./tasks-db/1-schema.sql
+  - ./tasks-db/2-data.sql
+  - ./auth-db/1-schema.sql
+  - ./auth-db/2-data.sql
 - les services Python ne sont pas connectés à leur base de données respective
 - le service auth n'est pas implémenté (signin, signup, signout, verify token...)
 - le service gateway n'est pas implémenté
@@ -21,6 +26,11 @@ TODO:
 - ./tasks-service/.env
 - ./tasks-db/.env
 - ./rabbitmq/.env
+
+## Adminer
+
+- Pour accéder à l'exploration des Bases de données Postgresql dans __Adminer__, sélectionner le type __"Postgresql"__.
+- Le nom de l'hôte de la BDD correspond au nom du service (ex: auth-db ou tasks-db).
 
 ## Lancement des services Docker
 

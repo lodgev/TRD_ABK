@@ -1,94 +1,99 @@
 services:
   gateway-service:
+    build:
+      context: gateway-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./gateway-service:/app
+    ports:
+      - 3000:80
     env_file:
       - ./gateway-service/.env
-    build:
-      context: ./gateway-service
-    # develop:
-    #   watch:
-    #     - action: rebuild
-    #       path: ./gateway-service
-    #       target: /code
-    ports:
-      - 7001:80
     networks:
-      - shrp
+      - tdl
     depends_on:
-      - tasks-service
-      - auth-service
-
-  tasks-service:
-    env_file:
-      - ./tasks-service/.env
-    build:
-      context: ./tasks-service
-    # develop:
-    #   watch:
-    #     - action: rebuild
-    #       path: ./tasks-service
-    #       target: /code
-    ports:
-      - 8000:80
-    networks:
-      - shrp
-    depends_on:
-      tasks-db:
+      tasks-service:
+        condition: service_started
+      auth-service:
+        condition: service_started
+      message-broker:
         condition: service_healthy
-
-  tasks-db:
-    image: mongo:5.0
-    env_file:
-      - ./tasks-db/.env
-    volumes:
-      - ./tasks-db/mongoDB:/docker-entrypoint-initdb.d
-    ports:
-      - 27018:27017
-    networks:
-      - shrp
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.runCommand({ping: 1})"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   auth-service:
+    build:
+      context: auth-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./auth-service:/app
+    ports:
+      - 4444:80
     env_file:
       - ./auth-service/.env
-    build:
-      context: ./auth-service
-    # develop:
-    #   watch:
-    #     - action: rebuild
-    #       path: ./auth
-    #       target: /code
-    ports:
-      - 9000:80
     networks:
-      - shrp
+      - tdl
     depends_on:
       auth-db:
+        condition: service_started
+      message-broker:
         condition: service_healthy
 
+  tasks-service:
+    build:
+      context: tasks-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./tasks-service:/app
+    ports:
+      - 3333:80
+    env_file:
+      - ./tasks-service/.env
+    networks:
+      - tdl
+    depends_on:
+      tasks-db:
+        condition: service_started
+
+  # ws:
+  #   image: node:alpine
+  #   command: sh -c "npm i && npm run dev"
+  #   working_dir: /usr/src/app
+  #   volumes:
+  #     - ./ws:/usr/src/app
+  #   ports:
+  #     - 3080:3000
+  #   env_file:
+  #     - ./ws/.env
+  #   depends_on:
+  #     message-broker:
+  #       condition: service_healthy
+  #   networks:
+  #     - tdl
+
   auth-db:
-    image: mongo:5.0
+    image: postgres
     env_file:
       - ./auth-db/.env
     volumes:
-      - ./auth-db/mongoDB:/docker-entrypoint-initdb.d
-    ports:
-      - 27017:27017
+      # - ./auth-db/data:/var/lib/postgresql/data
+      - ./auth-db/sql:/docker-entrypoint-initdb.d
     networks:
-      - shrp
-    healthcheck:
-      test: ["CMD", "mongo", "--eval", "db.runCommand({ping: 1})"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - tdl
 
-  rabbitmq:
-    image: rabbitmq:3.8-management-alpine
+  tasks-db:
+    image: postgres
     env_file:
-      - ./rabbitmq/.env
+      - ./tasks-db/.env
+    volumes:
+      #- ./tasks-db/data:/var/lib/mysql
+      #- ./tasks-db/sql:/docker-entrypoint-initdb.d
+      - ./tasks-db/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - tdl
+
+  message-broker:
+    image: rabbitmq
+    env_file:
+      - ./message-broker/.env
     healthcheck:
       test: rabbitmq-diagnostics -q ping
       interval: 10s
@@ -98,20 +103,21 @@ services:
       - 5673:5672
       - 15673:15672
     volumes:
-      - ./rabbitmq/data:/var/lib/rabbitmq
-      - ./rabbitmq/log:/var/log/rabbitmq
+      - ./message-broker/data/:/var/lib/rabbitmq/
+      - ./message-broker/log/:/var/log/rabbitmq
     networks:
-      - shrp
+      - tdl
 
   adminer:
+    container_name: adminer
     image: adminer
-    environment:
-      - ADMINER_DEFAULT_SERVER=tasks-db
+    env_file:
+      - ./adminer/.env
     ports:
       - 8080:8080
     networks:
-      - shrp
+      - tdl
 
 networks:
-  shrp:
+  tdl:
     driver: bridge
