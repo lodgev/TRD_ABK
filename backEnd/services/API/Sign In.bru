@@ -1,0 +1,37 @@
+meta {
+  name: Sign In
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:3000/auth/sign-in
+  body: json
+  auth: basic
+}
+
+auth:basic {
+  username: john@doe.com
+  password: azerty
+}
+
+body:json {
+  {"login":"john@doe.com","password":"azerty"}
+}
+
+tests {
+  test("should be able to sign in", function() {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(200);
+  });
+  
+  test("should return an access_token", function() {
+    const data = res.getBody();
+    expect(data.access_token).to.be.a('string');
+  });
+  
+  test("should return a refresh_token", function() {
+    const data = res.getBody();
+    expect(data.refresh_token).to.be.a('string');
+  });
+}

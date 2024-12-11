@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "amqplib": "0.10.3",
-    "ws": "^8.16.0"
+    "ws": "file:"
   },
   "devDependencies": {
     "nodemon": "^3.0.3"

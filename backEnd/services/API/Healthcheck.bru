@@ -1,0 +1,18 @@
+meta {
+  name: Healthcheck
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/healthcheck
+  body: none
+  auth: none
+}
+
+tests {
+  test("should be able to sign in", function() {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(200);
+  });
+}
