@@ -250,23 +250,45 @@ services:
     networks:
       - tdl
 
+  # message-broker:
+  #   image: rabbitmq
+  #   env_file:
+  #     - ./message-broker/.env
+  #   healthcheck:
+  #     test: rabbitmq-diagnostics -q ping
+  #     interval: 10s
+  #     timeout: 10s
+  #     retries: 3
+  #   ports:
+  #     - 5673:5672
+  #     - 15673:15672
+  #   volumes:
+  #     - ./message-broker/data/:/var/lib/rabbitmq/
+  #     - ./message-broker/log/:/var/log/rabbitmq
+  #   networks:
+  #     - tdl
   message-broker:
-    image: rabbitmq
+    image: rabbitmq:management
+    container_name: message-broker
     env_file:
       - ./message-broker/.env
+    environment:
+      RABBITMQ_DEFAULT_USER: "user"
+      RABBITMQ_DEFAULT_PASS: "password"
     healthcheck:
-      test: rabbitmq-diagnostics -q ping
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
       interval: 10s
       timeout: 10s
       retries: 3
     ports:
-      - 5673:5672
-      - 15673:15672
+      - "5672:5672"
+      - "15672:15672"
     volumes:
-      - ./message-broker/data/:/var/lib/rabbitmq/
-      - ./message-broker/log/:/var/log/rabbitmq
+      - ./message-broker/data:/var/lib/rabbitmq
+      - ./message-broker/log:/var/log/rabbitmq
     networks:
       - tdl
+
 
   adminer:
     container_name: adminer
