@@ -1,0 +1,22 @@
+meta {
+  name: Sign Up
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3000/auth/sign-up
+  body: json
+  auth: none
+}
+
+body:json {
+  {"login":"john@doe.com","password":"azerty","firstname":"John","lastname":"Doe"}
+}
+
+tests {
+  test("should be able to signup", function() {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(201);
+  });
+}
