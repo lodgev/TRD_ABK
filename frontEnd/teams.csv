@@ -1,0 +1,166 @@
+name,shortName,id,deduction,ongoing,played,wins,draws,losses,scoresStr,goalConDiff,pts,idx,qualColor,logo,league_id
+Liverpool,Liverpool,8650,,,6,6,0,0,13-1,12,18,1,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8650_large.png,42
+Barcelona,Barcelona,8634,,,6,5,0,1,21-7,14,15,2,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8634_large.png,42
+Arsenal,Arsenal,9825,,,6,4,1,1,11-2,9,13,3,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/9825_large.png,42
+Bayer Leverkusen,Leverkusen,8178,,,6,4,1,1,12-5,7,13,4,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8178_large.png,42
+Aston Villa,Aston Villa,10252,,,6,4,1,1,9-3,6,13,5,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/10252_large.png,42
+Inter,Inter,8636,,,6,4,1,1,7-1,6,13,6,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8636_large.png,42
+Brest,Brest,8521,,,6,4,1,1,10-6,4,13,7,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8521_large.png,42
+Lille,Lille,8639,,,6,4,1,1,10-7,3,13,8,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8639_large.png,42
+Borussia Dortmund,Dortmund,9789,,,6,4,0,2,18-9,9,12,9,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9789_large.png,42
+Bayern München,Bayern München,9823,,,6,4,0,2,17-8,9,12,10,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9823_large.png,42
+Atletico Madrid,Atletico Madrid,9906,,,6,4,0,2,14-10,4,12,11,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9906_large.png,42
+Milan,Milan,8564,,,6,4,0,2,12-9,3,12,12,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8564_large.png,42
+Atalanta,Atalanta,8524,,,6,3,2,1,13-4,9,11,13,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8524_large.png,42
+Juventus,Juventus,9885,,,6,3,2,1,9-5,4,11,14,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9885_large.png,42
+Benfica,Benfica,9772,,,6,3,1,2,10-7,3,10,15,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9772_large.png,42
+Monaco,Monaco,9829,,,6,3,1,2,12-10,2,10,16,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9829_large.png,42
+Sporting CP,Sporting CP,9768,,,6,3,1,2,11-9,2,10,17,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9768_large.png,42
+Feyenoord,Feyenoord,10235,,,6,3,1,2,14-15,-1,10,18,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/10235_large.png,42
+Club Brugge,Club Brugge,8342,,,6,3,1,2,6-8,-2,10,19,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8342_large.png,42
+Real Madrid,Real Madrid,8633,,,6,3,0,3,12-11,1,9,20,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8633_large.png,42
+Celtic,Celtic,9925,,,6,2,3,1,10-10,0,9,21,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9925_large.png,42
+Manchester City,Man City,8456,,,6,2,2,2,13-9,4,8,22,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8456_large.png,42
+PSV Eindhoven,PSV Eindhoven,8640,,,6,2,2,2,10-8,2,8,23,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8640_large.png,42
+Dinamo Zagreb,Dinamo Zagreb,10156,,,6,2,2,2,10-15,-5,8,24,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/10156_large.png,42
+Paris Saint-Germain,PSG,9847,,,6,2,1,3,6-6,0,7,25,,https://images.fotmob.com/image_resources/logo/teamlogo/9847_large.png,42
+VfB Stuttgart,VfB Stuttgart,10269,,,6,2,1,3,9-12,-3,7,26,,https://images.fotmob.com/image_resources/logo/teamlogo/10269_large.png,42
+Shakhtar Donetsk,Shakhtar Donetsk,9728,,,6,1,1,4,5-13,-8,4,27,,https://images.fotmob.com/image_resources/logo/teamlogo/9728_large.png,42
+Sparta Prague,Sparta Prague,10247,,,6,1,1,4,7-18,-11,4,28,,https://images.fotmob.com/image_resources/logo/teamlogo/10247_large.png,42
+Sturm Graz,Sturm Graz,10014,,,6,1,0,5,4-9,-5,3,29,,https://images.fotmob.com/image_resources/logo/teamlogo/10014_large.png,42
+Girona,Girona,7732,,,6,1,0,5,4-10,-6,3,30,,https://images.fotmob.com/image_resources/logo/teamlogo/7732_large.png,42
+Red Star Belgrade,Red Star Belgrade,8687,,,6,1,0,5,10-19,-9,3,31,,https://images.fotmob.com/image_resources/logo/teamlogo/8687_large.png,42
+Salzburg,Salzburg,10013,,,6,1,0,5,3-18,-15,3,32,,https://images.fotmob.com/image_resources/logo/teamlogo/10013_large.png,42
+Bologna,Bologna,9857,,,6,0,2,4,1-7,-6,2,33,,https://images.fotmob.com/image_resources/logo/teamlogo/9857_large.png,42
+RB Leipzig,RB Leipzig,178475,,,6,0,0,6,6-13,-7,0,34,,https://images.fotmob.com/image_resources/logo/teamlogo/178475_large.png,42
+Slovan Bratislava,Slovan Bratislava,6019,,,6,0,0,6,5-21,-16,0,35,,https://images.fotmob.com/image_resources/logo/teamlogo/6019_large.png,42
+Young Boys,Young Boys,10192,,,6,0,0,6,3-22,-19,0,36,,https://images.fotmob.com/image_resources/logo/teamlogo/10192_large.png,42
+Lazio,Lazio,8543,,,6,5,1,0,14-3,11,16,1,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8543_large.png,73
+Athletic Club,Athletic Club,8315,,,6,5,1,0,11-2,9,16,2,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8315_large.png,73
+Anderlecht,Anderlecht,8635,,,6,4,2,0,11-6,5,14,3,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8635_large.png,73
+Lyon,Lyon,9748,,,6,4,1,1,15-7,8,13,4,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/9748_large.png,73
+Eintracht Frankfurt,Frankfurt,9810,,,6,4,1,1,12-8,4,13,5,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/9810_large.png,73
+Galatasaray,Galatasaray,8637,,,6,3,3,0,15-11,4,12,6,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8637_large.png,73
+Manchester United,Man United,10260,,,6,3,3,0,12-8,4,12,7,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/10260_large.png,73
+Rangers,Rangers,8548,,,6,3,2,1,13-7,6,11,8,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8548_large.png,73
+Tottenham Hotspur,Tottenham,8586,,,6,3,2,1,11-7,4,11,9,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8586_large.png,73
+FCSB,FCSB,9723,,,6,3,2,1,7-5,2,11,10,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9723_large.png,73
+Ajax,Ajax,8593,,,6,3,1,2,14-6,8,10,11,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8593_large.png,73
+Real Sociedad,Real Sociedad,8560,,,6,3,1,2,10-6,4,10,12,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8560_large.png,73
+Bodø/Glimt,Bodø/Glimt,8402,,,6,3,1,2,10-9,1,10,13,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8402_large.png,73
+Roma,Roma,8686,,,6,2,3,1,8-5,3,9,14,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8686_large.png,73
+Olympiacos,Olympiacos,8638,,,6,2,3,1,5-3,2,9,15,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8638_large.png,73
+Ferencvaros,Ferencvaros,8222,,,6,3,0,3,11-10,1,9,16,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8222_large.png,73
+Viktoria Plzen,Viktoria Plzen,6033,,,6,2,3,1,10-9,1,9,17,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/6033_large.png,73
+FC Porto,FC Porto,9773,,,6,2,2,2,12-10,2,8,18,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9773_large.png,73
+AZ Alkmaar,AZ Alkmaar,10229,,,6,2,2,2,9-9,0,8,19,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/10229_large.png,73
+Union St.Gilloise,Union St.Gilloise,7978,,,6,2,2,2,5-5,0,8,20,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/7978_large.png,73
+Fenerbahçe,Fenerbahçe,8695,,,6,2,2,2,7-9,-2,8,21,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8695_large.png,73
+PAOK Thessaloniki FC,PAOK Thessaloniki FC,8619,,,6,2,1,3,10-8,2,7,22,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8619_large.png,73
+FC Midtjylland,FC Midtjylland,8113,,,6,2,1,3,5-7,-2,7,23,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8113_large.png,73
+Elfsborg,Elfsborg,8014,,,6,2,1,3,8-11,-3,7,24,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8014_large.png,73
+Braga,Braga,10264,,,6,2,1,3,7-10,-3,7,25,,https://images.fotmob.com/image_resources/logo/teamlogo/10264_large.png,73
+Hoffenheim,Hoffenheim,8226,,,6,1,3,2,5-8,-3,6,26,,https://images.fotmob.com/image_resources/logo/teamlogo/8226_large.png,73
+Maccabi Tel Aviv,Maccabi Tel Aviv,7855,,,6,2,0,4,7-13,-6,6,27,,https://images.fotmob.com/image_resources/logo/teamlogo/7855_large.png,73
+Beşiktaş,Beşiktaş,10188,,,6,2,0,4,6-13,-7,6,28,,https://images.fotmob.com/image_resources/logo/teamlogo/10188_large.png,73
+Slavia Prague,Slavia Prague,7787,,,6,1,1,4,5-7,-2,4,29,,https://images.fotmob.com/image_resources/logo/teamlogo/7787_large.png,73
+FC Twente,FC Twente,8611,,,6,0,4,2,4-7,-3,4,30,,https://images.fotmob.com/image_resources/logo/teamlogo/8611_large.png,73
+Malmö FF,Malmö FF,10237,,,6,1,1,4,6-12,-6,4,31,,https://images.fotmob.com/image_resources/logo/teamlogo/10237_large.png,73
+Ludogorets Razgrad,Ludogorets Razgrad,210173,,,6,0,3,3,3-8,-5,3,32,,https://images.fotmob.com/image_resources/logo/teamlogo/210173_large.png,73
+Qarabag FK,Qarabag FK,7981,,,6,1,0,5,4-14,-10,3,33,,https://images.fotmob.com/image_resources/logo/teamlogo/7981_large.png,73
+RFS,RFS,248871,,,6,0,2,4,5-12,-7,2,34,,https://images.fotmob.com/image_resources/logo/teamlogo/248871_large.png,73
+Nice,Nice,9831,,,6,0,2,4,6-14,-8,2,35,,https://images.fotmob.com/image_resources/logo/teamlogo/9831_large.png,73
+Dynamo Kyiv,Dynamo Kyiv,8688,,,6,0,0,6,1-15,-14,0,36,,https://images.fotmob.com/image_resources/logo/teamlogo/8688_large.png,73
+Chelsea,Chelsea,8455,,,5,5,0,0,21-4,17,15,1,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8455_large.png,10216
+Vitoria de Guimaraes,Vitoria de Guimaraes,7844,,,5,4,1,0,12-5,7,13,2,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/7844_large.png,10216
+Fiorentina,Fiorentina,8535,,,5,4,0,1,17-6,11,12,3,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8535_large.png,10216
+Legia Warszawa,Legia Warszawa,8673,,,5,4,0,1,12-2,10,12,4,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8673_large.png,10216
+Lugano,Lugano,7896,,,5,4,0,1,9-5,4,12,5,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/7896_large.png,10216
+Shamrock Rovers,Shamrock Rovers,4131,,,5,3,2,0,11-4,7,11,6,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/4131_large.png,10216
+Cercle Brugge,Cercle Brugge,9984,,,5,3,1,1,13-6,7,10,7,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/9984_large.png,10216
+Jagiellonia Bialystok,Jagiellonia Bialystok,1957,,,5,3,1,1,10-5,5,10,8,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/1957_large.png,10216
+Rapid Wien,Rapid Wien,10015,,,5,3,1,1,8-5,3,10,9,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/10015_large.png,10216
+APOEL Nicosia,APOEL Nicosia,8621,,,5,3,1,1,7-4,3,10,10,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8621_large.png,10216
+Djurgården,Djurgården,9802,,,5,3,1,1,8-6,2,10,11,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9802_large.png,10216
+Pafos FC,Pafos FC,2137,,,5,3,0,2,9-5,4,9,12,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/2137_large.png,10216
+Gent,Gent,9991,,,5,3,0,2,8-7,1,9,13,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9991_large.png,10216
+Olimpija Ljubljana,Olimpija Ljubljana,7872,,,5,3,0,2,7-6,1,9,14,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/7872_large.png,10216
+FC Heidenheim,FC Heidenheim,94937,,,5,3,0,2,6-6,0,9,15,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/94937_large.png,10216
+FC København,FC København,8391,,,5,2,2,1,8-6,2,8,16,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8391_large.png,10216
+Real Betis,Real Betis,8603,,,5,2,1,2,5-5,0,7,17,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8603_large.png,10216
+Panathinaikos,Panathinaikos,10200,,,5,2,1,2,6-7,-1,7,18,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/10200_large.png,10216
+Vikingur Reykjavik,Vikingur Reykjavik,6017,,,5,2,1,2,6-7,-1,7,19,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/6017_large.png,10216
+Borac Banja Luka,Borac Banja Luka,10116,,,5,2,1,2,4-7,-3,7,20,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/10116_large.png,10216
+Omonia Nicosia,Omonia Nicosia,8044,,,5,2,0,3,7-7,0,6,21,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/8044_large.png,10216
+Mlada Boleslav,Mlada Boleslav,10180,,,5,2,0,3,4-6,-2,6,22,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/10180_large.png,10216
+Hearts,Hearts,9860,,,5,2,0,3,4-7,-3,6,23,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/9860_large.png,10216
+Başakşehir,Başakşehir,1933,,,5,1,2,2,8-11,-3,5,24,#0294F0,https://images.fotmob.com/image_resources/logo/teamlogo/1933_large.png,10216
+NK Celje,NK Celje,4622,,,5,1,1,3,10-11,-1,4,25,,https://images.fotmob.com/image_resources/logo/teamlogo/4622_large.png,10216
+Molde,Molde,9917,,,5,1,1,3,6-8,-2,4,26,,https://images.fotmob.com/image_resources/logo/teamlogo/9917_large.png,10216
+TSC Backa Topola,TSC Backa Topola,676140,,,5,1,1,3,6-10,-4,4,27,,https://images.fotmob.com/image_resources/logo/teamlogo/676140_large.png,10216
+FC Astana,FC Astana,166865,,,5,1,1,3,3-7,-4,4,28,,https://images.fotmob.com/image_resources/logo/teamlogo/166865_large.png,10216
+HJK,HJK,9861,,,5,1,1,3,3-8,-5,4,29,,https://images.fotmob.com/image_resources/logo/teamlogo/9861_large.png,10216
+St. Gallen,St. Gallen,10190,,,5,1,1,3,9-17,-8,4,30,,https://images.fotmob.com/image_resources/logo/teamlogo/10190_large.png,10216
+FC Noah,FC Noah,866111,,,5,1,1,3,3-12,-9,4,31,,https://images.fotmob.com/image_resources/logo/teamlogo/866111_large.png,10216
+TNS,TNS,7852,,,5,1,0,4,3-7,-4,3,32,,https://images.fotmob.com/image_resources/logo/teamlogo/7852_large.png,10216
+Dinamo Minsk,Dinamo Minsk,10058,,,5,1,0,4,4-9,-5,3,33,,https://images.fotmob.com/image_resources/logo/teamlogo/10058_large.png,10216
+LASK,LASK,9977,,,5,0,2,3,3-13,-10,2,34,,https://images.fotmob.com/image_resources/logo/teamlogo/9977_large.png,10216
+CS Petrocub,CS Petrocub,561981,,,5,0,1,4,2-11,-9,1,35,,https://images.fotmob.com/image_resources/logo/teamlogo/561981_large.png,10216
+Larne,Larne,2206,,,5,0,0,5,2-12,-10,0,36,,https://images.fotmob.com/image_resources/logo/teamlogo/2206_large.png,10216
+Silkeborg,Silkeborg,8415,,,3,3,0,0,8-3,5,9,1,,https://images.fotmob.com/image_resources/logo/teamlogo/8415_large.png,9514
+Real Salt Lake,Salt Lake,6606,,,3,2,0,1,5-2,3,6,2,,https://images.fotmob.com/image_resources/logo/teamlogo/6606_large.png,9514
+Fredrikstad,Fredrikstad,8417,,,3,2,0,1,4-1,3,6,3,,https://images.fotmob.com/image_resources/logo/teamlogo/8417_large.png,9514
+FC København,FC København,8391,,,3,2,0,1,9-7,2,6,4,,https://images.fotmob.com/image_resources/logo/teamlogo/8391_large.png,9514
+Brøndby IF,Brøndby IF,8595,,,3,2,0,1,5-5,0,6,5,,https://images.fotmob.com/image_resources/logo/teamlogo/8595_large.png,9514
+Beijing Guoan,Beijing Guoan,4177,,,1,1,0,0,1-0,1,3,6,,https://images.fotmob.com/image_resources/logo/teamlogo/4177_large.png,9514
+Molde,Molde,9917,,,2,1,0,1,3-4,-1,3,7,,https://images.fotmob.com/image_resources/logo/teamlogo/9917_large.png,9514
+IFK Göteborg,IFK Göteborg,9893,,,3,1,0,2,6-11,-5,3,8,,https://images.fotmob.com/image_resources/logo/teamlogo/9893_large.png,9514
+FC Midtjylland,FC Midtjylland,8113,,,2,0,0,2,1-3,-2,0,9,,https://images.fotmob.com/image_resources/logo/teamlogo/8113_large.png,9514
+Elfsborg,Elfsborg,8014,,,3,0,0,3,5-10,-5,0,10,,https://images.fotmob.com/image_resources/logo/teamlogo/8014_large.png,9514
+Klaksvik,Klaksvik,8106,,,3,0,0,3,0-7,-7,0,11,,https://images.fotmob.com/image_resources/logo/teamlogo/8106_large.png,9514
+Inter U19,Inter U19,394129,,,6,6,0,0,19-7,12,18,1,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394129_large.png,9741
+Sporting CP U19,Sporting CP U19,394210,,,6,5,1,0,13-3,10,16,2,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394210_large.png,9741
+Salzburg U19,Salzburg U19,675920,,,6,5,1,0,17-9,8,16,3,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/675920_large.png,9741
+Barcelona U19,Barcelona U19,394213,,,6,5,0,1,17-10,7,15,4,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394213_large.png,9741
+VfB Stuttgart U19,VfB Stuttgart U19,665291,,,6,4,1,1,13-6,7,13,5,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/665291_large.png,9741
+Real Madrid U19,Real Madrid U19,603058,,,6,4,0,2,10-5,5,12,6,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/603058_large.png,9741
+Atalanta U19,Atalanta U19,1087188,,,6,4,0,2,14-12,2,12,7,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/1087188_large.png,9741
+Atletico Madrid U19,Atletico Madrid U19,581120,,,6,3,2,1,16-8,8,11,8,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/581120_large.png,9741
+Benfica U19,Benfica U19,597674,,,6,3,2,1,12-7,5,11,9,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/597674_large.png,9741
+Juventus U19,Juventus U19,394206,,,6,3,2,1,9-4,5,11,10,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394206_large.png,9741
+Bayern München U19,Bayern München U19,601179,,,6,3,1,2,11-12,-1,10,11,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/601179_large.png,9741
+Manchester City U19,Manchester City U19,394199,,,6,3,1,2,16-8,8,10,12,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394199_large.png,9741
+Girona U19,Girona U19,1677331,,,6,2,4,0,9-5,4,10,13,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/1677331_large.png,9741
+Shakhtar Donetsk U19,Shakhtar Donetsk U19,592748,,,6,3,1,2,9-11,-2,10,14,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/592748_large.png,9741
+Aston Villa U19,Aston Villa U19,394201,,,6,3,0,3,14-11,3,9,15,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394201_large.png,9741
+Sturm Graz U19,Sturm Graz U19,1677332,,,6,2,3,1,10-8,2,9,16,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/1677332_large.png,9741
+Celtic U19,Celtic U19,394212,,,6,3,0,3,10-10,0,9,17,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394212_large.png,9741
+Dinamo Zagreb U19,Dinamo Zagreb U19,672227,,,6,2,2,2,8-8,0,8,18,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/672227_large.png,9741
+Borussia Dortmund U19,Borussia Dortmund U19,394130,,,6,2,2,2,11-8,3,8,19,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394130_large.png,9741
+Liverpool U19,Liverpool U19,394197,,,6,2,2,2,9-8,1,8,20,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/394197_large.png,9741
+Lille U19,Lille U19,585026,,,6,1,5,0,8-7,1,8,21,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/585026_large.png,9741
+Monaco U19,Monaco U19,585094,,,6,2,2,2,6-7,-1,8,22,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/585094_large.png,9741
+Paris Saint Germain U19,Paris Saint Germain U19,394203,,,6,2,1,3,14-13,1,7,23,,https://images.fotmob.com/image_resources/logo/teamlogo/394203_large.png,9741
+Bayer Leverkusen U19,Bayer Leverkusen U19,592671,,,6,2,1,3,7-9,-2,7,24,,https://images.fotmob.com/image_resources/logo/teamlogo/592671_large.png,9741
+PSV Eindhoven U19,PSV Eindhoven U19,394208,,,6,1,3,2,8-9,-1,6,25,,https://images.fotmob.com/image_resources/logo/teamlogo/394208_large.png,9741
+Arsenal U19,Arsenal U19,394196,,,6,2,0,4,5-12,-7,6,26,,https://images.fotmob.com/image_resources/logo/teamlogo/394196_large.png,9741
+FK Crvena Zvezda U19,FK Crvena Zvezda U19,590137,,,6,1,2,3,7-11,-4,5,27,,https://images.fotmob.com/image_resources/logo/teamlogo/590137_large.png,9741
+AC Milan U19,AC Milan U19,1291621,,,6,1,2,3,7-11,-4,5,28,,https://images.fotmob.com/image_resources/logo/teamlogo/1291621_large.png,9741
+Feyenoord U19,Feyenoord U19,889586,,,6,1,1,4,7-14,-7,4,29,,https://images.fotmob.com/image_resources/logo/teamlogo/889586_large.png,9741
+Young Boys U19,Young Boys U19,959033,,,6,1,0,5,11-17,-6,3,30,,https://images.fotmob.com/image_resources/logo/teamlogo/959033_large.png,9741
+Club Brugge U19,Club Brugge U19,681685,,,6,0,3,3,5-11,-6,3,31,,https://images.fotmob.com/image_resources/logo/teamlogo/681685_large.png,9741
+RB Leipzig U19,RB Leipzig U19,667906,,,6,1,0,5,10-18,-8,3,32,,https://images.fotmob.com/image_resources/logo/teamlogo/667906_large.png,9741
+Bologna U19,Bologna U19,1398793,,,6,0,2,4,7-14,-7,2,33,,https://images.fotmob.com/image_resources/logo/teamlogo/1398793_large.png,9741
+Brest U19,Brest U19,585065,,,6,0,2,4,5-16,-11,2,34,,https://images.fotmob.com/image_resources/logo/teamlogo/585065_large.png,9741
+Slovan Bratislava U19,Slovan Bratislava U19,559151,,,6,0,2,4,6-20,-14,2,35,,https://images.fotmob.com/image_resources/logo/teamlogo/559151_large.png,9741
+Sparta Prague U19,Sparta Prague U19,437816,,,6,0,1,5,4-15,-11,1,36,,https://images.fotmob.com/image_resources/logo/teamlogo/437816_large.png,9741
+Argentina,Argentina,6706,,,12,8,1,3,21-7,14,25,1,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/6706_large.png,10199
+Uruguay,Uruguay,5796,,,12,5,5,2,17-9,8,20,2,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/5796_large.png,10199
+Ecuador,Ecuador,6707,-3.0,,12,6,4,2,11-4,7,19,3,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/6707_large.png,10199
+Colombia,Colombia,8258,,,12,5,4,3,15-10,5,19,4,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8258_large.png,10199
+Brazil,Brazil,8256,,,12,5,3,4,17-11,6,18,5,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/8256_large.png,10199
+Paraguay,Paraguay,6724,,,12,4,5,3,8-7,1,17,6,#2AD572,https://images.fotmob.com/image_resources/logo/teamlogo/6724_large.png,10199
+Bolivia,Bolivia,5797,,,12,4,1,7,13-27,-14,13,7,#FFD908,https://images.fotmob.com/image_resources/logo/teamlogo/5797_large.png,10199
+Venezuela,Venezuela,5800,,,12,2,6,4,11-15,-4,12,8,,https://images.fotmob.com/image_resources/logo/teamlogo/5800_large.png,10199
+Chile,Chile,9762,,,12,2,3,7,9-20,-11,9,9,,https://images.fotmob.com/image_resources/logo/teamlogo/9762_large.png,10199
+Peru,Peru,5798,,,12,1,4,7,3-15,-12,7,10,,https://images.fotmob.com/image_resources/logo/teamlogo/5798_large.png,10199

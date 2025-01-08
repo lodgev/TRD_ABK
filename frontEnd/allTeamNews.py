@@ -3,11 +3,15 @@ import json
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-import streamlit as st
+#import streamlit as st
+headers = {
+    'x-rapidapi-key': "3c99262600msh5da2d3d13033579p1c677ejsnc94020f9ff0e",
 
+    'x-rapidapi-host': "free-api-live-football-data.p.rapidapi.com"
+}
 # Configuration de l'API
-API_HOST = "free-api-live-football-data.p.rapidapi.com"
 API_KEY = "3c99262600msh5da2d3d13033579p1c677ejsnc94020f9ff0e"
+API_HOST = "free-api-live-football-data.p.rapidapi.com"
 HEADERS = {
     'x-rapidapi-key': API_KEY,
     'x-rapidapi-host': API_HOST
@@ -68,6 +72,7 @@ for team_id in teams_ids:
         if item['page']['url'].startswith("http"):
             full_url = item['page']['url']
         else:
+            base_url=""
             if "fotmob" in item.get('sourceStr', '').lower():
                 base_url = "fotmob.com"
             else:
