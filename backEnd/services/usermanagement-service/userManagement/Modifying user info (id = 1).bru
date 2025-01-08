@@ -1,0 +1,22 @@
+meta {
+  name: Modifying user info (id = 1)
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:6666/UserManagementService/users/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "firstName": "Dorian",
+    "email": "dorian.newmail@gmail.com"
+  }
+}

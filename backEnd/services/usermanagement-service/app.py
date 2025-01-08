@@ -69,6 +69,36 @@ def create_user():
   return jsonify({'user': user}), 201
 
 
+# Route "/UserManagementService/users/<user_id>" (DELETE) pour supprimer un utilisateur
+@app.route('/UserManagementService/users/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    global users
+    user = next((user for user in users if user['id'] == user_id), None)
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+    users = [u for u in users if u['id'] != user_id]
+    return jsonify({'message': f'User {user_id} deleted successfully'}), 200
+
+
+@app.route('/UserManagementService/users/<int:user_id>', methods=['PUT'])
+def update_user(user_id):
+    user = next((user for user in users if user['id'] == user_id), None)
+    if user is None:
+        return jsonify({'error': 'User not found'}), 404
+
+    data = request.json
+    if 'firstName' in data:
+        user['firstName'] = data['firstName']
+    if 'lastName' in data:
+        user['lastName'] = data['lastName']
+    if 'email' in data:
+        user['email'] = data['email']
+    if 'age' in data:
+        user['age'] = data['age']
+
+    return jsonify({'user': user}), 200
+
+
 # Enfin, démarrer l'API
 if __name__ == '__main__':
   if os.environ.get('ENV') == 'production':
