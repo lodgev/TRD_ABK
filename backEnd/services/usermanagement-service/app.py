@@ -99,6 +99,16 @@ def update_user(user_id):
     return jsonify({'user': user}), 200
 
 
+# Route "/UserManagementService/users/<user_id>" (GET) pour obtenir un user spécifique par son ID
+@app.route('/UserManagementService/users/<int:user_id>/is_adult', methods=['GET'])
+def is_adult(user_id):
+  user = next((user for user in users if user['id'] == user_id), None)
+  if len(user) == 0:
+    return jsonify({'error': 'User not found'}), 404
+  return jsonify({'is_adult': user['age'] > 18}), 200
+
+
+
 # Enfin, démarrer l'API
 if __name__ == '__main__':
   if os.environ.get('ENV') == 'production':
