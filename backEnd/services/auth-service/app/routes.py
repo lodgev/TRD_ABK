@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.database import get_db
-from app.schemas import LoginRequest, LoginResponse
-from app.crud import login_user
-# , logout_user
+from app.schemas import LoginRequest, LoginResponse, LogoutRequest, LogoutResponse
+from app.crud import login_user, logout_user
 
 router = APIRouter()
 
@@ -11,6 +10,6 @@ router = APIRouter()
 def login(data: LoginRequest, db: Session = Depends(get_db)):
     return login_user(db, data)
 
-# @router.post("/auth/logout")
-# def logout(user_id: str, db: Session = Depends(get_db)):
-#     return logout_user(db, user_id)
+@router.post("/auth/logout", response_model=LogoutResponse)
+def logout(data: LogoutRequest, db: Session = Depends(get_db)):
+    return logout_user(db, data)

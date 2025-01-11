@@ -8,8 +8,8 @@ class LoginResponse(BaseModel):
     access_token: str
     refresh_token: str
 
-# class LogoutRequest(BaseModel):
-#     user_id: str
+class LogoutRequest(BaseModel):
+    id: str
     
-# class LogoutResponse(BaseModel):
-#     message: str
+class LogoutResponse(BaseModel):
+    message: str
