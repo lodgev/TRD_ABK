@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, DateTime, func
+from sqlalchemy import Column, String, Time, func, Boolean
 from app.database import Base
 import uuid
 
@@ -9,8 +9,9 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
     refreshtoken = Column(String) 
-    createdat = Column(String)
-    updatedat = Column(String, nullable=True)
-    lastsigninat = Column(String, nullable=True)
+    createdat = Column(Time)
+    updatedat = Column(Time, nullable=True)
+    lastsigninat = Column(Time, nullable=True)
     firstname = Column(String)
     lastname = Column(String)
+    is_verified = Column(Boolean, default=False)

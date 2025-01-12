@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import jwt
+from .register import show_registration
 
 def show_login():
     st.markdown("<h2 style='text-align: center;'>Login</h2>", unsafe_allow_html=True)
@@ -13,14 +14,14 @@ def show_login():
     col1, col2 = st.columns(2)
     with col1:
         if st.button("Registration"):
-            st.warning("In progress")
+            st.session_state.current_page = "Register"
+            st.rerun()
     with col2:
         if st.button("Forget password"):
             st.warning("In progress")
 
     if login_button:
         if email and password:
-            # POST запит до auth-service
             try:
                 response = requests.post(
                     "http://auth-service:80/auth/login",

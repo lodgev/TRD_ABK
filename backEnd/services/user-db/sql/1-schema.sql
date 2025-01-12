@@ -11,6 +11,7 @@ CREATE TABLE public.users (
     lastsigninat time NULL,
     firstname varchar NOT NULL,
     lastname varchar NOT NULL,
+    is_verified boolean NOT NULL,
     CONSTRAINT users_pk PRIMARY KEY (id),
     CONSTRAINT users_unique UNIQUE (email)
 );
