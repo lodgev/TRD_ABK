@@ -1,0 +1,11 @@
+meta {
+  name: User confirmed email request
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:4444/auth/verify/{user_id}
+  body: none
+  auth: none
+}

@@ -89,9 +89,27 @@ services:
       message-broker:
         condition: service_healthy
 
+  # auth-service:
+  #   build:
+  #     context: auth-service
+  #     dockerfile: Dockerfile
+  #   volumes:
+  #     - ./auth-service:/app
+  #   ports:
+  #     - 4444:80
+  #   env_file:
+  #     - ./auth-service/.env
+  #   networks:
+  #     - tdl
+  #   depends_on:
+  #     user-db:
+  #       condition: service_started
+  #     message-broker:
+  #       condition: service_healthy
+
   auth-service:
     build:
-      context: auth-service
+      context: ./auth-service
       dockerfile: Dockerfile
     volumes:
       - ./auth-service:/app
@@ -102,10 +120,9 @@ services:
     networks:
       - tdl
     depends_on:
-      user-db:
-        condition: service_started
-      message-broker:
-        condition: service_healthy
+      - user-db
+      - message-broker
+      - notification-service 
 
   tasks-service:
     build:
@@ -173,6 +190,24 @@ services:
           condition: service_healthy
         gateway-service:
           condition: service_started
+  
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./notification-service:/app
+    ports:
+      - 8081:80 
+    env_file:
+      - ./notification-service/.env
+    networks:
+      - tdl
+    depends_on:
+      message-broker:
+        condition: service_healthy  
+
+    
         
 networks:
   tdl:

@@ -6,6 +6,17 @@ meta {
 
 post {
   url: http://localhost:4444/auth/logout
-  body: none
+  body: json
   auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjkyOGM0NTUtZDJmMy00ZTMwLWJmNTgtMTc4YWUwNDFlOGMyIiwiZXhwIjoxNzM2NjM4OTQ4fQ.jZbDeXt6VfQQNcWTqiiZPzKBydCffGe6MEwzMbhEXZY
+}
+
+body:json {
+  {
+    "id": "f928c455-d2f3-4e30-bf58-178ae041e8c2"
+  }
 }
