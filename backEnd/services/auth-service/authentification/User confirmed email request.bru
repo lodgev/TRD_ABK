@@ -5,7 +5,11 @@ meta {
 }
 
 get {
-  url: http://localhost:4444/auth/verify/{user_id}
-  body: none
+  url: http://localhost:4444/auth/verify/43c92d21-dfbd-4df7-8ed9-27e27defab02
+  body: json
   auth: none
+}
+
+headers {
+  Content-Type: application/json
 }

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Time, func, Boolean
+from sqlalchemy import Column, String, Time, Boolean
 from app.database import Base
 import uuid
 
@@ -15,3 +15,6 @@ class User(Base):
     firstname = Column(String)
     lastname = Column(String)
     is_verified = Column(Boolean, default=False)
+    reset_token = Column(String)
+    reset_token_expiration = Column(Time)
+    

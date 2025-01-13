@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.models import User
 from app.database import get_db
-from app.schemas import LoginRequest, LoginResponse, LogoutRequest, LogoutResponse, RegistrationRequest
-from app.crud import login_user, logout_user, register_user
+from app.schemas import LoginRequest, LoginResponse, LogoutRequest, LogoutResponse, RegistrationRequest, ForgotPasswordRequest, ResetPasswordRequest
+from app.crud import login_user, logout_user, register_user, request_password_reset, reset_password
 
 router = APIRouter()
 
@@ -32,3 +32,15 @@ def verify_email(user_id: str, db: Session = Depends(get_db)):
     user.is_verified = True
     db.commit()
     return {"message": "Email successfully verified!"}
+
+@router.post("/auth/forgot-password")
+def forgot_password(data: ForgotPasswordRequest, db: Session = Depends(get_db)):
+    return request_password_reset(db, data.email)
+
+# @router.post("/auth/reset-password/{reset_token}")
+# def reset_password_endpoint(data: ResetPasswordRequest, db: Session = Depends(get_db)):
+#     return reset_password(db, data.reset_token, data.new_password)
+
+@router.post("/auth/reset-password")
+def reset_password_endpoint(data: ResetPasswordRequest, db: Session = Depends(get_db)):
+    return reset_password(db, data.reset_token, data.new_password)

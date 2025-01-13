@@ -1,6 +1,8 @@
 import streamlit as st
 from .login import show_login
 from .register import show_registration
+from .forgot_password import show_forgot_password
+from .reset_password import show_reset_password
 
 def run_auth():
 
@@ -12,5 +14,8 @@ def run_auth():
         show_login()
     elif st.session_state.current_page == "Register":
         show_registration()
-    elif st.session_state.current_page == "Reset Password":
-        st.write("Reset Password page is in progress...") 
+    elif st.session_state.current_page == "Forgot password":
+        show_forgot_password()
+    elif st.session_state.current_page == "Reset password":
+        show_reset_password()
+        

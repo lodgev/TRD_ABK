@@ -6,6 +6,15 @@ meta {
 
 post {
   url: http://localhost:8081/verify-email
-  body: none
+  body: json
   auth: none
+}
+
+body:json {
+  {
+      "recipient_email": "lodgev1@gmail.com",
+      "subject": "Email Verification",
+      "message": "Please verify your email by clicking the link."
+  }
+  
 }

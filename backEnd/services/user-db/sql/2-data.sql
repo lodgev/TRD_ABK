@@ -8,7 +8,9 @@ INSERT INTO public.users (
         lastsigninat,
         firstname,
         lastname,
-        is_verified
+        is_verified,
+        reset_token,
+        reset_token_expiration
     )
 VALUES (
         'f928c455-d2f3-4e30-bf58-178ae041e8c2'::uuid,
@@ -20,5 +22,7 @@ VALUES (
         NULL,
         'John',
         'Doe',
-        'True'
+        'True',
+        NULL,
+        NULL
     );

@@ -22,3 +22,12 @@ class RegistrationRequest(BaseModel):
 
 class RegisterUserResponse(BaseModel):
     message: str
+    
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+    
+class ResetPasswordRequest(BaseModel):
+    reset_token: str
+    new_password: str
+    
+    
