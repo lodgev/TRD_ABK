@@ -158,9 +158,6 @@ services:
       message-broker:
         condition: service_healthy
 
-  
-      
-
   usermanagement-service:
     build:
       context : usermanagement-service
@@ -207,8 +204,6 @@ services:
       message-broker:
         condition: service_healthy  
 
-    
-        
 networks:
   tdl:
     driver: bridge
