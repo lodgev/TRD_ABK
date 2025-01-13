@@ -8,3 +8,11 @@ CREATE TABLE clubs (
     start_date DATE NOT NULL,
     end_date DATE NOT NULL
 );
+
+CREATE TABLE matches (
+    id SERIAL PRIMARY KEY,
+    home_team_id INT REFERENCES clubs(id),
+    away_team_id INT REFERENCES clubs(id),
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL
+);

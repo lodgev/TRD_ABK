@@ -1,19 +1,10 @@
--- public.users definition
--- Drop table
--- DROP TABLE public.users;
-CREATE TABLE public.users (
-    id uuid NOT NULL,
-    email varchar NOT NULL,
-    "password" varchar NOT NULL,
-    refreshtoken varchar NULL,
-    createdat time NOT NULL,
-    updatedat time NULL,
-    lastsigninat time NULL,
-    firstname varchar NOT NULL,
-    lastname varchar NOT NULL,
-    is_verified boolean NOT NULL,
-    reset_token varchar NULL,
-    reset_token_expiration time NULL,
-    CONSTRAINT users_pk PRIMARY KEY (id),
-    CONSTRAINT users_unique UNIQUE (email)
+CREATE TABLE bets (
+    bet_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    match_id INT NOT NULL,
+    amount NUMERIC(10, 2) NOT NULL,
+    bet_type VARCHAR(10) NOT NULL,
+    selected_team VARCHAR(100) NOT NULL,
+    status VARCHAR(20) DEFAULT 'pending',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

@@ -6,38 +6,38 @@ import pandas as pd
 API_BASE_URL = "http://match-service:80/clubs"
 
 
-def fetch_matches():
+def fetch_clubs():
     try:
         response = requests.get(API_BASE_URL)
         if response.status_code == 200:
             return response.json()
         else:
-            st.error(f"Failed to fetch matches: {response.status_code}")
+            st.error(f"Failed to fetch clubs: {response.status_code}")
             return []
     except Exception as e:
-        st.error(f"An error occurred while fetching matches: {e}")
+        st.error(f"An error occurred while fetching clubs: {e}")
         return []
 
 
-def show_matches():
+def show_clubs():
     st.title("Clubs")
 
 
-    matches = fetch_matches()
-    if not matches:
-        st.info("No matches available.")
+    clubs = fetch_clubs()
+    if not clubs:
+        st.info("No clubs available.")
         return
 
-    df = pd.DataFrame(matches)
+    df = pd.DataFrame(clubs)
 
     search_query = st.text_input("Search by club name or country")
     if search_query:
         df = df[df["club"].str.contains(search_query, case=False, na=False) | df["country"].str.contains(search_query, case=False, na=False)]
 
     st.sidebar.header("Filters")
-    selected_club = st.sidebar.multiselect("Filter by Club", df["club"].unique())
-    selected_level = st.sidebar.multiselect("Filter by Level", df["level"].unique())
-    selected_country = st.sidebar.multiselect("Filter by Country", df["country"].unique())
+    selected_club = st.sidebar.multiselect("Filter by club", df["club"].unique())
+    selected_level = st.sidebar.multiselect("Filter by level", df["level"].unique())
+    selected_country = st.sidebar.multiselect("Filter by country", df["country"].unique())
 
     if selected_club:
         df = df[df["club"].isin(selected_club)]

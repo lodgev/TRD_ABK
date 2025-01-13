@@ -1,6 +1,6 @@
 import streamlit as st
 from app.auth_form.logout import logout_user
-from app.main_page.matches.show_matches import show_matches
+from app.main_page.matches.show_clubs import show_clubs
 
 
 def run_main_app():
@@ -32,10 +32,12 @@ def run_main_app():
     st.title("TRD - The Real Deal")
 
 
-    main_mode = st.sidebar.selectbox("Select an option", ["Matches", "Profile", "Betting"])
+    main_mode = st.sidebar.selectbox("Select an option", ["Matches", "Clubs", "Profile", "Betting"])
 
     if main_mode == "Matches":
-        show_matches()  
+        st.write("Profile section is in progress...") 
+    elif main_mode == "Clubs":
+        show_clubs() 
     elif main_mode == "Profile":
         st.write("Profile section is in progress...")
     elif main_mode == "Betting":
