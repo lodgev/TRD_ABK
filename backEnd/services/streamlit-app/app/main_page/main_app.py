@@ -1,6 +1,8 @@
 import streamlit as st
 from app.auth_form.logout import logout_user
 from app.main_page.matches.show_clubs import show_clubs
+from app.main_page.matches.show_matches import show_matches
+
 
 
 def run_main_app():
@@ -35,7 +37,7 @@ def run_main_app():
     main_mode = st.sidebar.selectbox("Select an option", ["Matches", "Clubs", "Profile", "Betting"])
 
     if main_mode == "Matches":
-        st.write("Profile section is in progress...") 
+        show_matches()
     elif main_mode == "Clubs":
         show_clubs() 
     elif main_mode == "Profile":

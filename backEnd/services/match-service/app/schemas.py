@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from datetime import date
+from datetime import date, datetime
 
 class Club(BaseModel):
     id: int
@@ -11,4 +11,11 @@ class Club(BaseModel):
     start_date: date
     end_date: date
 
-
+class Match(BaseModel):
+    match_id: int
+    home_team: str
+    home_score: int
+    away_team: str
+    away_score: int
+    score_string: str
+    match_date: datetime
