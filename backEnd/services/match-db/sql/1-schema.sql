@@ -10,9 +10,12 @@ CREATE TABLE clubs (
 );
 
 CREATE TABLE matches (
-    id SERIAL PRIMARY KEY,
-    home_team_id INT REFERENCES clubs(id),
-    away_team_id INT REFERENCES clubs(id),
-    start_date DATE NOT NULL,
-    end_date DATE NOT NULL
+    match_id BIGINT PRIMARY KEY,
+    home_team VARCHAR(255) NOT NULL,
+    home_score INT NOT NULL,
+    away_team VARCHAR(255) NOT NULL,
+    away_score INT NOT NULL,
+    score_string VARCHAR(20),
+    match_date TIMESTAMP NOT NULL
 );
+
