@@ -24,3 +24,5 @@ class Match(Base):
     away_score = Column(Integer)
     score_string = Column(String, index=True)
     match_date = Column(Date, index=True)
+    home_coeff = Column(Float, index=True)
+    away_coeff = Column(Float, index=True)

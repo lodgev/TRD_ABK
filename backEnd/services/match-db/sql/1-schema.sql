@@ -9,6 +9,16 @@ CREATE TABLE clubs (
     end_date DATE NOT NULL
 );
 
+-- CREATE TABLE matches (
+--     match_id BIGINT PRIMARY KEY,
+--     home_team VARCHAR(255) NOT NULL,
+--     home_score INT NOT NULL,
+--     away_team VARCHAR(255) NOT NULL,
+--     away_score INT NOT NULL,
+--     score_string VARCHAR(20),
+--     match_date TIMESTAMP NOT NULL,
+--     home_coeff 
+-- );
 CREATE TABLE matches (
     match_id BIGINT PRIMARY KEY,
     home_team VARCHAR(255) NOT NULL,
@@ -16,6 +26,9 @@ CREATE TABLE matches (
     away_team VARCHAR(255) NOT NULL,
     away_score INT NOT NULL,
     score_string VARCHAR(20),
-    match_date TIMESTAMP NOT NULL
+    match_date TIMESTAMP NOT NULL,
+    home_coeff FLOAT NOT NULL, 
+    away_coeff FLOAT NOT NULL
 );
+
 

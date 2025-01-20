@@ -19,3 +19,5 @@ class Match(BaseModel):
     away_score: int
     score_string: str
     match_date: datetime
+    home_coeff: float
+    away_coeff: float
