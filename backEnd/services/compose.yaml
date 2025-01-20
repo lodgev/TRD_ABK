@@ -35,6 +35,15 @@ services:
       - ./match-db/sql:/docker-entrypoint-initdb.d
     networks:
       - tdl
+  
+  betting-db:
+    image: postgres
+    env_file:
+      - ./betting-db/.env
+    volumes:
+      - ./betting-db/sql:/docker-entrypoint-initdb.d
+    networks:
+      - tdl
 
   adminer:
     container_name: adminer
