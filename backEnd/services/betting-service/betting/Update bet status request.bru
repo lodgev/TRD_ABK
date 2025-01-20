@@ -1,0 +1,22 @@
+meta {
+  name: Update bet status request
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:8001/betts/update-bet/1
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "status": "waiting_list"
+  }
+  
+}

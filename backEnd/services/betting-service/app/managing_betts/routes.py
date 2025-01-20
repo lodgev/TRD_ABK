@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Depends
 from app.managing_betts import crud
 
-from app.schemas import BetCreate
+from app.schemas import BetCreate, BetUpdate
 from sqlalchemy.orm import Session
 from app.database import get_db
 
@@ -17,3 +17,24 @@ def get_bet(bet_id: int, db: Session = Depends(get_db)):
     if not bet:
         raise HTTPException(status_code=404, detail="Bet not found")
     return bet
+
+@router.get("/get-all-bets")
+def get_all_bets(db: Session = Depends(get_db)):
+    bets = crud.get_all_bets(db)
+    if not bets:
+        raise HTTPException(status_code=404, detail="No bets found")
+    return bets
+
+@router.put("/update-bet/{bet_id}", response_model=dict)
+def update_bet(bet_id: int, bet_update: BetUpdate, db: Session = Depends(get_db)):
+    bet = crud.update_bet_status(db, bet_id, bet_update.status)
+    if not bet:
+        raise HTTPException(status_code=404, detail="Bet not found")
+    return {"message": "Bet updated successfully", "bet_id": bet_id, "new_status": bet.status}
+
+@router.delete("/cancel-bet/{bet_id}", response_model=dict)
+def cancel_bet(bet_id: int, db: Session = Depends(get_db)):
+    bet_id_deleted = crud.delete_bet(db, bet_id)
+    if not bet_id_deleted:
+        raise HTTPException(status_code=404, detail="Bet not found")
+    return {"message": "Bet canceled successfully", "bet_id": bet_id}

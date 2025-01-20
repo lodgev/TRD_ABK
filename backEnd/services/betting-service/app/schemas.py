@@ -9,6 +9,10 @@ class BetCreate(BaseModel):
     amount: Decimal
     coefficient: Decimal
     potential_win: Decimal
+    
+
+class BetUpdate(BaseModel):
+    status: str
 
 # class OddsUpdate(BaseModel):
 #     home_coeff: Decimal

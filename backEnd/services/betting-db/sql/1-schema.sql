@@ -1,4 +1,4 @@
-CREATE TYPE bet_type_enum AS ENUM ('win', 'lose', 'draw');
+CREATE TYPE bet_type_enum AS ENUM ('win', 'lose', 'draw', 'none');
 CREATE TYPE status_enum AS ENUM ('waiting_list', 'pending', 'won', 'lost');
 
 CREATE TABLE bets (
