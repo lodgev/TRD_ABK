@@ -133,6 +133,24 @@ services:
       message-broker:
         condition: service_healthy
 
+  betting-service:
+    build:
+      context: betting-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./betting-service:/app
+    ports:
+      - 8001:80
+    env_file:
+      - ./betting-service/.env
+    networks:
+      - tdl
+    depends_on:
+      match-db:
+        condition: service_started
+      message-broker:
+        condition: service_healthy
+
 
   tasks-service:
     build:
