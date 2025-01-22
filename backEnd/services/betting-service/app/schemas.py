@@ -11,8 +11,15 @@ class BetCreate(BaseModel):
     potential_win: Decimal
     
 
+# class BetUpdate(BaseModel):
+#     status: str
+
 class BetUpdate(BaseModel):
-    status: str
+    status: str = None
+    amount: float = None
+    selected_team: str = None
+    coefficient: float = None
+    potential_win: float = None
 
 # class OddsUpdate(BaseModel):
 #     home_coeff: Decimal

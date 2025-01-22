@@ -15,14 +15,29 @@ def get_bet(db: Session, bet_id: int):
 def get_all_bets(db: Session):
     return db.query(Bet).all()
 
-def update_bet_status(db: Session, bet_id: int, new_status: str):
+# def update_bet_status(db: Session, bet_id: int, new_status: str):
+#     bet = db.query(Bet).filter(Bet.bet_id == bet_id).first()
+#     if not bet:
+#         return None
+#     bet.status = new_status
+#     db.commit()
+#     db.refresh(bet)
+#     return bet
+
+def update_bet(db: Session, bet_id: int, updates: dict):
     bet = db.query(Bet).filter(Bet.bet_id == bet_id).first()
     if not bet:
         return None
-    bet.status = new_status
+
+    # Dynamically update fields based on the updates dictionary
+    for field, value in updates.items():
+        if hasattr(bet, field):  # Ensure the Bet model has the attribute
+            setattr(bet, field, value)
+
     db.commit()
     db.refresh(bet)
     return bet
+
 
 def delete_bet(db: Session, bet_id: int):
     bet = db.query(Bet).filter(Bet.bet_id == bet_id).first()
