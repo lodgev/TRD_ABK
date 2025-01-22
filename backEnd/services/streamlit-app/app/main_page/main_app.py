@@ -2,7 +2,7 @@ import streamlit as st
 from app.auth_form.logout import logout_user
 from app.main_page.matches.show_clubs import show_clubs
 from app.main_page.matches.show_matches import show_matches
-
+from app.main_page.bets.bet_main import run_main_bet
 
 
 def run_main_app():
@@ -43,5 +43,5 @@ def run_main_app():
     elif main_mode == "Profile":
         st.write("Profile section is in progress...")
     elif main_mode == "Betting":
-        st.write("Betting section is in progress...")
+        run_main_bet()
 

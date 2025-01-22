@@ -3,11 +3,12 @@ import requests
 import pandas as pd
 import datetime
 
-API_BASE_URL = "http://match-service:80/matches"
+API_BASE_URL_MATCHES = "http://match-service:80/matches"
+API_BASE_URL_BETTING = "http://betting-service:80/betts"
 
 def fetch_matches():
     try:
-        response = requests.get(API_BASE_URL)
+        response = requests.get(API_BASE_URL_MATCHES)
         if response.status_code == 200:
             return response.json()
         else:
@@ -16,6 +17,27 @@ def fetch_matches():
     except Exception as e:
         st.error(f"An error occurred while fetching matches: {e}")
         return []
+
+def add_to_betting_list(match_id, home_team, away_team, user_id, home_coeff, away_coeff):    
+    bet_payload = {
+        "user_id": user_id,
+        "match_id": match_id,
+        "bet_type": "win",
+        "selected_team": home_team,
+        "amount": 1.0,
+        "coefficient": home_coeff,
+        "potential_win": 0.0,
+        "status": "waiting_list"
+    }
+
+    try:
+        response = requests.post(f"{API_BASE_URL_BETTING}/create-bet", json=bet_payload)
+        if response.status_code in [200, 201]:
+            st.success(f"The match has been successfully added to your betting list with default settings. You can modify the details in the Betts tab.")
+        else:
+            st.error(f"Failed to add Match ID {match_id} to betting list: {response.status_code}")
+    except Exception as e:
+        st.error(f"An error occurred while adding to the betting list: {e}")
 
 def show_matches():
     st.title("Matches")
@@ -28,6 +50,7 @@ def show_matches():
     df = pd.DataFrame(matches)
     df["match_date"] = pd.to_datetime(df["match_date"]).dt.strftime('%Y-%m-%d %H:%M:%S')
 
+        # ==== filters ====
     st.sidebar.header("Filters")
     default_start_date = datetime.date(2024, 9, 17)
     start_date = st.sidebar.date_input("Start Date", value=default_start_date)
@@ -41,6 +64,8 @@ def show_matches():
     if selected_team:
         df = df[(df["home_team"].isin(selected_team)) | (df["away_team"].isin(selected_team))]
 
+    # ==== sorting ====
+    
     st.sidebar.header("Sorting")
     sort_by = st.sidebar.selectbox("Sort by", ["match_date"])
     sort_order = st.sidebar.radio("Sort order", ["Ascending", "Descending"])
@@ -48,6 +73,7 @@ def show_matches():
 
     df = df.sort_values(by=sort_by, ascending=ascending)
 
+    # ==== show the list of matches ====
     for _, row in df.iterrows():
         with st.container():
             st.markdown(
@@ -61,10 +87,5 @@ def show_matches():
                 """,
                 unsafe_allow_html=True,
             )
-            col1, col2 = st.columns(2)
-            with col1:
-                if st.button(f"Add to Betting List ({row['match_id']})", key=f"add_{row['match_id']}"):
-                    st.write(f"Added Match ID {row['match_id']} to betting list!")
-            with col2:
-                if st.button(f"Place Bet ({row['match_id']})", key=f"bet_{row['match_id']}"):
-                    st.write(f"Bet placed for Match ID {row['match_id']}!")
+            if st.button(f"Add to betting list ({row['match_id']})", key=f"add_{row['match_id']}"):
+                add_to_betting_list(row["match_id"], row["home_team"], row["away_team"], user_id, row['home_coeff'], row['away_coeff'])
