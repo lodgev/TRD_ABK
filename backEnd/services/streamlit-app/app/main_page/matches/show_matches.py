@@ -47,14 +47,10 @@ def show_matches():
         st.info("No matches available.")
         return
 
-    user_id = st.session_state.get("user_id")
-    if not user_id:
-        st.warning("You need to log in to add matches to the betting list.")
-        return
-
     df = pd.DataFrame(matches)
     df["match_date"] = pd.to_datetime(df["match_date"]).dt.strftime('%Y-%m-%d %H:%M:%S')
 
+        # ==== filters ====
     st.sidebar.header("Filters")
     default_start_date = datetime.date(2024, 9, 17)
     start_date = st.sidebar.date_input("Start Date", value=default_start_date)
@@ -68,6 +64,8 @@ def show_matches():
     if selected_team:
         df = df[(df["home_team"].isin(selected_team)) | (df["away_team"].isin(selected_team))]
 
+    # ==== sorting ====
+    
     st.sidebar.header("Sorting")
     sort_by = st.sidebar.selectbox("Sort by", ["match_date"])
     sort_order = st.sidebar.radio("Sort order", ["Ascending", "Descending"])
@@ -75,6 +73,7 @@ def show_matches():
 
     df = df.sort_values(by=sort_by, ascending=ascending)
 
+    # ==== show the list of matches ====
     for _, row in df.iterrows():
         with st.container():
             st.markdown(

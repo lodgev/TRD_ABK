@@ -28,12 +28,15 @@ def show_clubs():
         st.info("No clubs available.")
         return
 
-    df = pd.DataFrame(clubs)
 
+    df = pd.DataFrame(clubs)
+    
+    # ==== search bar ====
     search_query = st.text_input("Search by club name or country")
     if search_query:
         df = df[df["club"].str.contains(search_query, case=False, na=False) | df["country"].str.contains(search_query, case=False, na=False)]
 
+    # ==== filters for searching ====
     st.sidebar.header("Filters")
     selected_club = st.sidebar.multiselect("Filter by club", df["club"].unique())
     selected_level = st.sidebar.multiselect("Filter by level", df["level"].unique())
@@ -46,6 +49,8 @@ def show_clubs():
     if selected_country:
         df = df[df["country"].isin(selected_country)]
 
+
+    # ==== sorting ====
     st.sidebar.header("Sorting")
     sort_by = st.sidebar.selectbox("Sort by", ["level", "elo", "start_date"])
     sort_order = st.sidebar.radio("Sort order", ["Ascending", "Descending"])
@@ -53,6 +58,7 @@ def show_clubs():
 
     df = df.sort_values(by=sort_by, ascending=ascending)
 
+    # ==== show the list of clubs ====
     for _, row in df.iterrows():
         with st.container():
             st.markdown(

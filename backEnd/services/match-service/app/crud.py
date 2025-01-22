@@ -11,13 +11,6 @@ def get_clubs(db: Session):
 def get_club_by_id(db: Session, club_id: int):
     return db.query(models.Club).filter(models.Club.id == club_id).first()
 
-# def create_club(db: Session, club: schemas.ClubCreate):
-#     db_club = models.Club(**club.dict())
-#     db.add(db_club)
-#     db.commit()
-#     db.refresh(db_club)
-#     return db_club
-
 # === matches ===
 
 def get_matches(db: Session):

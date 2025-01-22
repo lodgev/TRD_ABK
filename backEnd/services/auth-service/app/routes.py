@@ -37,10 +37,6 @@ def verify_email(user_id: str, db: Session = Depends(get_db)):
 def forgot_password(data: ForgotPasswordRequest, db: Session = Depends(get_db)):
     return request_password_reset(db, data.email)
 
-# @router.post("/auth/reset-password/{reset_token}")
-# def reset_password_endpoint(data: ResetPasswordRequest, db: Session = Depends(get_db)):
-#     return reset_password(db, data.reset_token, data.new_password)
-
 @router.post("/auth/reset-password")
 def reset_password_endpoint(data: ResetPasswordRequest, db: Session = Depends(get_db)):
     return reset_password(db, data.reset_token, data.new_password)

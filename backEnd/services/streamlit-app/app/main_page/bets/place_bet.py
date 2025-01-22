@@ -17,6 +17,7 @@ def get_match_details(match_id):
         st.error(f"An error occurred while fetching match details: {e}")
         return None
     
+# === update the bates after button "Place bet - confrim"
 def update_bet_status(bet_id, new_status):
     """Update the status of a bet."""
     try:
@@ -28,80 +29,6 @@ def update_bet_status(bet_id, new_status):
     except Exception as e:
         st.error(f"An error occurred while updating the bet: {e}")
 
-# def place_bet_page():
-#     st.title("Place Bet")
-
-#     selected_bet = st.session_state.get("selected_bet")
-#     if not selected_bet:
-#         st.warning("No bet selected.")
-#         st.button("Go Back", on_click=lambda: st.session_state.update({"current_page": "show_bets"}))
-#         st.rerun()
-#         return
-
-#     match_details = get_match_details(selected_bet["match_id"])
-#     if not match_details:
-#         st.warning("Match details could not be fetched.")
-#         st.button("Go Back", on_click=lambda: st.session_state.update({"current_page": "show_bets"}))
-#         st.rerun()
-#         return
-
-#     st.subheader("Bet Details")
-#     st.write(f"Match: {match_details['home_team']} vs {match_details['away_team']}")
-#     st.write(f"Match Date: {match_details['match_date']}")
-#     st.write(f"Created At: {selected_bet.get('created_at', 'N/A')}")
-
-#     # Team selection
-#     selected_team = st.selectbox("Select Team", [match_details["home_team"], match_details["away_team"]])
-
-#     # Get coefficient based on selected team
-#     coefficient = match_details["home_coeff"] if selected_team == match_details["home_team"] else match_details["away_coeff"]
-
-#     st.write(f"Coefficient: {coefficient}")
-
-#     # Amount input
-#     amount = st.number_input("Bet Amount", min_value=1.0, value=selected_bet.get("amount", 1.0), step=1.0)
-
-#     # Calculate potential win
-#     potential_win = round(amount * coefficient, 2)
-#     st.write(f"Potential Win: {potential_win}")
-
-#     # Bet Type
-#     bet_type = st.selectbox("Bet Type", ["win", "lose", "draw"])
-    
-#     col1, col2, col3 = st.columns(3)
-#     with col1:
-#         if st.button("Confirm"):
-#             # Update the bet details in the database
-#             bet_payload = {
-#                 "bet_type": bet_type,
-#                 "selected_team": selected_team,
-#                 "amount": amount,
-#                 "coefficient": coefficient,
-#                 "potential_win": potential_win,
-#                 "status": "pending"
-#             }
-#             try:
-#                 response = requests.put(f"{API_BASE_URL}/update-bet/{selected_bet['bet_id']}", json=bet_payload)
-#                 if response.status_code == 200:
-#                     st.success("Bet placed successfully!")
-#                     st.session_state["current_page"] = "show_bets"
-#                     st.rerun()
-#                 else:
-#                     st.error(f"Failed to update bet: {response.status_code}")
-#             except Exception as e:
-#                 st.error(f"An error occurred while updating the bet: {e}")
-            
-#     with col2:
-#         if st.button("Cancel"):
-#             update_bet_status(selected_bet["bet_id"], "waiting_list")
-#             st.session_state["current_page"] = "show_bets"
-#             st.rerun()
-
-#     with col3:
-#         if st.button("Back"):
-#             st.session_state["current_page"] = "show_bets"
-#             st.rerun()
-
 def place_bet_page():
     st.title("Place Bet")
 
@@ -112,6 +39,7 @@ def place_bet_page():
         st.rerun()
         return
 
+# === get match details for selected betts
     match_details = get_match_details(selected_bet["match_id"])
     if not match_details:
         st.warning("Match details could not be fetched.")
@@ -119,34 +47,27 @@ def place_bet_page():
         st.rerun()
         return
 
-    # Display Bet Details
     st.subheader("Bet Details")
     st.write(f"Match: {match_details['home_team']} vs {match_details['away_team']}")
     st.write(f"Match Date: {match_details['match_date']}")
     st.write(f"Created At: {selected_bet.get('created_at', 'N/A')}")
 
-    # Team Selection
     selected_team = st.selectbox("Select Team", [match_details["home_team"], match_details["away_team"]])
 
-    # Coefficient Based on Team
     coefficient = match_details["home_coeff"] if selected_team == match_details["home_team"] else match_details["away_coeff"]
 
     st.write(f"Coefficient: {coefficient}")
 
-    # Amount Input
     amount = st.number_input("Bet Amount", min_value=1.0, value=selected_bet.get("amount", 1.0), step=1.0)
 
-    # Potential Win Calculation
     potential_win = round(amount * coefficient, 2)
     st.write(f"Potential Win: {potential_win}")
 
-    # Bet Type Selection
     bet_type = st.selectbox("Bet Type", ["win", "lose", "draw"])
 
-    # Action Buttons
     col1, col2, col3 = st.columns(3)
 
-    # Confirm Button
+
     with col1:
         if st.button("Confirm"):
             bet_payload = {
@@ -168,194 +89,13 @@ def place_bet_page():
             except Exception as e:
                 st.error(f"An error occurred while updating the bet: {e}")
 
-    # Cancel Button
     with col2:
         if st.button("Cancel"):
             update_bet_status(selected_bet["bet_id"], "waiting_list")
             st.session_state["current_page"] = "show_bets"
             st.rerun()
 
-    # Back Button
     with col3:
         if st.button("Back"):
             st.session_state["current_page"] = "show_bets"
             st.rerun()
-
-
-# def place_bet_page():
-#     st.title("Place Bet")
-
-#     selected_bet = st.session_state.get("selected_bet")
-#     if not selected_bet:
-#         st.warning("No bet selected.")
-#         st.button("Go Back", on_click=lambda: st.session_state.update({"current_page": "show_bets"}))
-#         st.rerun()
-#         return
-
-#     match_details = get_match_details(selected_bet["match_id"])
-#     if not match_details:
-#         st.warning("Match details could not be fetched.")
-#         st.button("Go Back", on_click=lambda: st.session_state.update({"current_page": "show_bets"}))
-#         st.rerun()
-#         return
-
-#     st.subheader("Bet Details")
-#     st.write(f"Match: {match_details['home_team']} vs {match_details['away_team']}")
-#     st.write(f"Match Date: {match_details['match_date']}")
-
-#     # Team selection
-#     selected_team = st.selectbox("Select Team", [match_details["home_team"], match_details["away_team"]])
-
-#     # Get coefficient based on selected team
-#     if selected_team == match_details["home_team"]:
-#         coefficient = match_details["home_coeff"]
-#     else:
-#         coefficient = match_details["away_coeff"]
-
-#     st.write(f"Coefficient: {coefficient}")
-
-#     # Amount input
-#     amount = st.number_input("Bet Amount", min_value=1.0, value=selected_bet.get("amount", 1.0), step=1.0)
-
-#     # Calculate potential win
-#     potential_win = round(amount * coefficient, 2)
-#     st.write(f"Potential Win: {potential_win}")
-
-#     # Bet Type
-#     bet_type = st.selectbox("Bet Type", ["win", "lose", "draw"])
-    
-#     col1, col2, col3 = st.columns(3)
-#     with col1:
-#         if st.button("Confirm"):
-            
-#             bet_payload = {
-#                 "user_id": selected_bet["user_id"],
-#                 "match_id": selected_bet["match_id"],
-#                 "bet_type": bet_type,
-#                 "selected_team": selected_team,
-#                 "amount": amount,
-#                 "coefficient": coefficient,
-#                 "potential_win": potential_win,
-#                 "status": "pending"
-#             }
-#             try:
-#                 response = requests.post(f"{API_BASE_URL}/create-bet", json=bet_payload)
-#                 if response.status_code == 200:
-#                     st.success("Bet placed successfully!")
-#                     update_bet_status(selected_bet["bet_id"], "pending")
-#                     st.session_state["current_page"] = "show_bets"
-#                     st.rerun()
-#                 else:
-#                     st.error(f"Failed to place bet: {response.status_code}")
-#             except Exception as e:
-#                 st.error(f"An error occurred while placing the bet: {e}")
-            
-#     with col2:
-#         if st.button("Cancel"):
-#             update_bet_status(selected_bet["bet_id"], "waiting_list")
-#             st.session_state["current_page"] = "show_bets"
-#             st.rerun()
-
-#     with col3:
-#         if st.button("Back"):
-#             st.session_state["current_page"] = "show_bets"
-#             st.rerun()
-    # col1, col2, col3 = st.columns(3)
-
-    # with col1:
-    #     if st.button("Confirm"):
-    #         # Update the bet details in the database
-  
-
-    # with col2:
-    #     if st.button("Cancel"):
-    #         st.session_state["current_page"] = "show_bets"
-    #         st.rerun()
-
-    # with col3:
-    #     if st.button("Back"):
-    #         st.session_state["current_page"] = "show_bets"
-    #         st.rerun()
-
-
-
-
-
-# def place_bet_page():
-#     st.title("Place Bet")
-
-#     selected_bet = st.session_state.get("selected_bet")
-#     if not selected_bet:
-#         st.warning("No bet selected.")
-#         st.button("Go Back", on_click=lambda: st.session_state.update({"current_page": "show_bets"}))
-#         st.rerun()
-#         return
-
-#     # Fetch match details
-#     match_details = get_match_details(selected_bet["match_id"])
-#     if not match_details:
-#         st.warning("Unable to fetch match details.")
-#         st.button("Go Back", on_click=lambda: st.session_state.update({"current_page": "show_bets"}))
-#         st.rerun()
-#         return
-
-#     # Add match details to the selected bet
-#     selected_bet["home_team"] = match_details["home_team"]
-#     selected_bet["away_team"] = match_details["away_team"]
-
-#     # Display the bet details
-#     st.markdown(
-#         f"""
-#         <div style='border: 2px solid #4CAF50; border-radius: 10px; padding: 15px; margin: 20px; background-color: #f9f9f9;'>
-#             <h3 style='color: #4CAF50;'>Match: {selected_bet['home_team']} vs {selected_bet['away_team']}</h3>
-#             <p><b>Selected Team:</b> {selected_bet['selected_team']}</p>
-#             <p><b>Bet Type:</b> {selected_bet['bet_type']}</p>
-#             <p><b>Amount:</b> {selected_bet['amount']} </p>
-#             <p><b>Potential Win:</b> {selected_bet['potential_win']} </p>
-#             <p><b>Created At:</b> {selected_bet['created_at']}</p>
-#         </div>
-#         """,
-#         unsafe_allow_html=True,
-#     )
-
-#     # Form for user input
-#     st.subheader("Edit Your Bet")
-
-#     # Select the bet type (win/lose/draw)
-#     selected_bet["bet_type"] = st.radio(
-#         "Select Bet Type",
-#         options=["win", "lose", "draw"],
-#         index=["win", "lose", "draw"].index(selected_bet["bet_type"])
-#     )
-
-#     # Select the team
-#     selected_bet["selected_team"] = st.selectbox(
-#         "Select Team",
-#         [selected_bet["home_team"], selected_bet["away_team"]],
-#         index=0 if selected_bet["selected_team"] == selected_bet["home_team"] else 1
-#     )
-
-#     # Input amount
-#     selected_bet["amount"] = st.number_input("Amount", min_value=0.0, value=float(selected_bet["amount"]), step=1.0)
-
-#     # Calculate potential win
-#     selected_bet["potential_win"] = round(selected_bet["amount"] * selected_bet["coefficient"], 2)
-#     st.write(f"Potential Win: {selected_bet['potential_win']}")
-
-#     col1, col2, col3 = st.columns(3)
-#     with col1:
-#         if st.button("Confirm"):
-#             update_bet_status(selected_bet["bet_id"], "pending")
-#             st.session_state["current_page"] = "show_bets"
-#             st.rerun()
-
-#     with col2:
-#         if st.button("Cancel"):
-#             update_bet_status(selected_bet["bet_id"], "waiting_list")
-#             st.session_state["current_page"] = "show_bets"
-#             st.rerun()
-
-#     with col3:
-#         if st.button("Back"):
-#             st.session_state["current_page"] = "show_bets"
-#             st.rerun()

@@ -26,13 +26,6 @@ def get_all_bets(db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="No bets found")
     return bets
 
-# @router.put("/update-bet/{bet_id}", response_model=dict)
-# def update_bet(bet_id: int, bet_update: BetUpdate, db: Session = Depends(get_db)):
-#     bet = crud.update_bet_status(db, bet_id, bet_update.status)
-#     if not bet:
-#         raise HTTPException(status_code=404, detail="Bet not found")
-#     return {"message": "Bet updated successfully", "bet_id": bet_id, "new_status": bet.status}
-
 @router.put("/update-bet/{bet_id}", response_model=dict)
 def update_bet(bet_id: int, bet_update: BetUpdate, db: Session = Depends(get_db)):
     updates = bet_update.dict(exclude_unset=True)  # Extract only provided fields

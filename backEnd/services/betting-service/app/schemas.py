@@ -11,9 +11,6 @@ class BetCreate(BaseModel):
     potential_win: Decimal
     
 
-# class BetUpdate(BaseModel):
-#     status: str
-
 class BetUpdate(BaseModel):
     status: str = None
     amount: float = None

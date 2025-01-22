@@ -3,6 +3,7 @@ from app.main_page.bets.show_bets import show_bets
 from app.main_page.bets.place_bet import place_bet_page
 
 def run_main_bet():
+    
     if "current_page" not in st.session_state:
         st.session_state["current_page"] = "show_bets" 
 
