@@ -4,8 +4,12 @@ meta {
   seq: 6
 }
 
-post {
-  url: http://localhost:8001/cancel-bet/{bet_id}
+delete {
+  url: http://localhost:8001/betts/cancel-bet/8
   body: none
   auth: none
+}
+
+headers {
+  Content-Type: application/json
 }

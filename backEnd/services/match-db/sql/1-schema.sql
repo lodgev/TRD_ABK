@@ -9,16 +9,6 @@ CREATE TABLE clubs (
     end_date DATE NOT NULL
 );
 
--- CREATE TABLE matches (
---     match_id BIGINT PRIMARY KEY,
---     home_team VARCHAR(255) NOT NULL,
---     home_score INT NOT NULL,
---     away_team VARCHAR(255) NOT NULL,
---     away_score INT NOT NULL,
---     score_string VARCHAR(20),
---     match_date TIMESTAMP NOT NULL,
---     home_coeff 
--- );
 CREATE TABLE matches (
     match_id BIGINT PRIMARY KEY,
     home_team VARCHAR(255) NOT NULL,
@@ -30,5 +20,13 @@ CREATE TABLE matches (
     home_coeff FLOAT NOT NULL, 
     away_coeff FLOAT NOT NULL
 );
+
+CREATE TABLE match_club_likes (
+    id SERIAL PRIMARY KEY,
+    match_id BIGINT NOT NULL REFERENCES matches(match_id) ON DELETE CASCADE,
+    club_id INTEGER NOT NULL REFERENCES clubs(id) ON DELETE CASCADE,
+    likes_count INTEGER NOT NULL DEFAULT 0
+);
+
 
 
