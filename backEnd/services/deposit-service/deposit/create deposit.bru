@@ -1,0 +1,23 @@
+meta {
+  name: create deposit
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8002/transactions/
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "wallet_id": 2,
+    "amount": 500.00
+  }
+  
+}
