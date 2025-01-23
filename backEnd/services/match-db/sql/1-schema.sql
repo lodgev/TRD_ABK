@@ -6,7 +6,8 @@ CREATE TABLE clubs (
     level VARCHAR(50) NOT NULL,
     elo INTEGER NOT NULL,
     start_date DATE NOT NULL,
-    end_date DATE NOT NULL
+    end_date DATE NOT NULL,
+    likes INTEGER
 );
 
 CREATE TABLE matches (
