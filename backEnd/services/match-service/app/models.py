@@ -13,6 +13,7 @@ class Club(Base):
     elo = Column(Float, index=True)
     start_date = Column(Date, index=True)
     end_date = Column(Date, index=True)
+    likes = Column(Integer, index=True)
 
 class Match(Base):
     __tablename__ = "matches"

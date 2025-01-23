@@ -11,6 +11,13 @@ class Club(BaseModel):
     start_date: date
     end_date: date
 
+class ClubUpdateResponse(BaseModel):
+    club_id: int
+    club_name: str
+    likes: int
+    dislikes: int
+
+
 class Match(BaseModel):
     match_id: int
     home_team: str
@@ -21,3 +28,4 @@ class Match(BaseModel):
     match_date: datetime
     home_coeff: float
     away_coeff: float
+

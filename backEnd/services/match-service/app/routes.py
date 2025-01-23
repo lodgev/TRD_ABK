@@ -3,7 +3,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from . import crud, schemas, database
-
 router = APIRouter()
 
 # === clubs ===
@@ -23,6 +22,24 @@ def get_club(club_id: int, db: Session = Depends(database.get_db)):
 # @router.post("/clubs", response_model=schemas.Club)
 # def create_club(club: schemas.ClubCreate, db: Session = Depends(database.get_db)):
 #     return crud.create_club(db, club)
+
+@router.put("/clubs/{club_id}/update-likes", response_model=list[schemas.ClubUpdateResponse])
+
+def update_club_likes(club_id: int, action: str, db: Session = Depends(database.get_db)):
+    if action not in ["like", "dislike"]:
+        raise HTTPException(status_code=400, detail="Invalid action. Must be 'like' or 'dislike'.")
+
+    updated_club = crud.update_likes(db, club_id, action)
+    if not updated_club:
+        raise HTTPException(status_code=404, detail="Club not found.")
+
+    return {
+        "club_id": updated_club.id,
+        "club_name": updated_club.club,
+        "likes": updated_club.likes,
+        "dislikes": updated_club.dislikes,
+    }
+
 
 # === matches ===
 @router.get("/matches", response_model=list[schemas.Match])

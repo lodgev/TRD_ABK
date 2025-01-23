@@ -11,6 +11,20 @@ def get_clubs(db: Session):
 def get_club_by_id(db: Session, club_id: int):
     return db.query(models.Club).filter(models.Club.id == club_id).first()
 
+def update_likes(db: Session, club_id: int, action: str):
+    club = db.query(models.Club).filter(models.Club.id == club_id).first()
+    if not club:
+        return None
+
+    if action == "like":
+        club.likes += 1
+    elif action == "dislike":
+        club.dislikes -= 1
+
+    db.commit()
+    db.refresh(club)
+    return club
+
 # === matches ===
 
 def get_matches(db: Session):
