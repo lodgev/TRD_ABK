@@ -5,11 +5,14 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import crud, schemas, database
 
-router = APIRouter(prefix="/transactions", tags=["Transactions"])
+router = APIRouter(prefix="/deposits", tags=["Deposits"])
 
 @router.post("/", response_model=schemas.TransactionResponse)
-def create_deposit(transaction: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
-    return crud.create_transaction(db, transaction)
+def create_deposit(deposit: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
+    deposit_transaction = crud.create_transaction(db, deposit)
+    if not deposit_transaction:
+        raise HTTPException(status_code=400, detail="Deposit failed")
+    return deposit_transaction
 
 @router.get("/", response_model=list[schemas.TransactionResponse])
 def get_transactions(db: Session = Depends(database.get_db)):
@@ -17,3 +20,5 @@ def get_transactions(db: Session = Depends(database.get_db)):
     if not transactions:
         raise HTTPException(status_code=404, detail="No transactions found")
     return transactions
+
+

@@ -23,6 +23,36 @@ def create_withdrawal(db: Session, withdrawal: schemas.TransactionCreate):
     db.refresh(new_transaction)
     return new_transaction
 
+
+
+def process_withdrawal(db: Session, withdrawal: schemas.TransactionCreate):
+    # Получаем баланс кошелька
+    wallet = db.query(models.Wallet).filter(models.Wallet.id == withdrawal.wallet_id).first()
+
+    if not wallet:
+        raise ValueError("Wallet not found")
+
+    # Проверяем наличие средств на счете
+    if wallet.balance < withdrawal.amount:
+        raise ValueError("Insufficient funds")
+
+    # Обновляем баланс кошелька
+    wallet.balance -= withdrawal.amount
+
+    # Создаем запись транзакции
+    new_transaction = models.Transaction(
+        wallet_id=withdrawal.wallet_id,
+        amount=-withdrawal.amount,  # Отрицательное значение для снятия
+        transaction_type="withdrawal",
+        status="completed"  # Устанавливаем статус как "завершено"
+    )
+
+    db.add(new_transaction)
+    db.commit()
+    db.refresh(new_transaction)
+
+    return new_transaction
+
 # def get_withdrawals(db: Session, wallet_id: int):
 #     return db.query(models.Transaction).filter(
 #         models.Transaction.wallet_id == wallet_id,

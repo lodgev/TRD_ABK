@@ -13,14 +13,26 @@ def create_wallet(db: Session, wallet: schemas.WalletCreate):
     db.refresh(new_wallet)
     return new_wallet
 
+
+def update_wallet_balance(db: Session, wallet_id: int, amount: Decimal):
+    wallet = db.query(models.Wallet).filter(models.Wallet.id == wallet_id).first()
+
+    if not wallet:
+        raise ValueError("Wallet not found")
+
+    wallet.balance += Decimal(amount)
+    db.commit()
+    db.refresh(wallet)
+    return wallet
+
 def get_wallet_balance(db: Session, wallet_id: int):
     wallet = db.query(models.Wallet).filter(models.Wallet.id == wallet_id).first()
     if wallet:
         return {"wallet_id": wallet.id, "balance": wallet.balance}
     return None
 
-def get_wallet_transactions(db: Session, wallet_id: int):
-    return db.query(models.Transaction).filter(models.Transaction.wallet_id == wallet_id).all()
+# def get_wallet_transactions(db: Session, wallet_id: int):
+#     return db.query(models.Transaction).filter(models.Transaction.wallet_id == wallet_id).all()
 
 # def create_transaction(db: Session, transaction: schemas.TransactionCreate):
 #     wallet = db.query(models.Wallet).filter(models.Wallet.id == transaction.wallet_id).first()

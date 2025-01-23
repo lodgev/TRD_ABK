@@ -15,7 +15,7 @@ class TransactionResponse(TransactionBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class TransactionStatusResponse(BaseModel):
@@ -23,7 +23,7 @@ class TransactionStatusResponse(BaseModel):
     status: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # class BetCreate(BaseModel):
