@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: http://localhost:8002/transactions/
+  url: http://localhost:8002/deposits/
   body: json
   auth: none
 }
@@ -16,8 +16,8 @@ headers {
 
 body:json {
   {
-    "wallet_id": 2,
-    "amount": 500.00
+    "wallet_id": 1,
+    "amount": 600.00
   }
   
 }

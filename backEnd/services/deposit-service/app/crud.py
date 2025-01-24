@@ -1,6 +1,6 @@
+from decimal import Decimal
 from sqlalchemy.orm import Session
-from . import models, schemas
-
+from app import models, schemas
 
 def create_transaction(db: Session, transaction: schemas.TransactionCreate):
     new_transaction = models.Transaction(
@@ -19,3 +19,33 @@ def create_transaction(db: Session, transaction: schemas.TransactionCreate):
 #
 def get_transactions(db: Session):
     return db.query(models.Transaction).all()
+
+
+
+
+def process_deposit(db: Session, deposit: schemas.TransactionCreate):
+    # Получаем кошелек
+    wallet = db.query(models.Wallet).filter(models.Wallet.id == deposit.wallet_id).first()
+
+    if not wallet:
+        raise ValueError("Wallet not found")
+
+    # Преобразование суммы депозита к Decimal для точных вычислений
+    deposit_amount = Decimal(str(deposit.amount))
+
+    # Обновляем баланс кошелька
+    wallet.balance += deposit_amount
+
+    # Создаем запись транзакции
+    new_transaction = models.Transaction(
+        wallet_id=deposit.wallet_id,
+        amount=deposit_amount,
+        transaction_type="deposit",
+        status="completed"  # Устанавливаем статус как "завершено"
+    )
+
+    db.add(new_transaction)
+    db.commit()
+    db.refresh(new_transaction)
+
+    return new_transaction

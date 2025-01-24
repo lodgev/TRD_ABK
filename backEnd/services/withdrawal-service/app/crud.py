@@ -1,5 +1,7 @@
 from sqlalchemy.orm import Session
 from app import models, schemas
+from decimal import Decimal
+
 
 def create_withdrawal(db: Session, withdrawal: schemas.TransactionCreate):
     # Проверка наличия средств на кошельке
@@ -32,17 +34,20 @@ def process_withdrawal(db: Session, withdrawal: schemas.TransactionCreate):
     if not wallet:
         raise ValueError("Wallet not found")
 
+    # Преобразование суммы к Decimal для корректной арифметики
+    withdrawal_amount = Decimal(str(withdrawal.amount))
+
     # Проверяем наличие средств на счете
-    if wallet.balance < withdrawal.amount:
+    if wallet.balance < withdrawal_amount:
         raise ValueError("Insufficient funds")
 
     # Обновляем баланс кошелька
-    wallet.balance -= withdrawal.amount
+    wallet.balance -= withdrawal_amount
 
     # Создаем запись транзакции
     new_transaction = models.Transaction(
         wallet_id=withdrawal.wallet_id,
-        amount=-withdrawal.amount,  # Отрицательное значение для снятия
+        amount=-withdrawal_amount,  # Отрицательное значение для снятия
         transaction_type="withdrawal",
         status="completed"  # Устанавливаем статус как "завершено"
     )
@@ -52,6 +57,7 @@ def process_withdrawal(db: Session, withdrawal: schemas.TransactionCreate):
     db.refresh(new_transaction)
 
     return new_transaction
+
 
 # def get_withdrawals(db: Session, wallet_id: int):
 #     return db.query(models.Transaction).filter(

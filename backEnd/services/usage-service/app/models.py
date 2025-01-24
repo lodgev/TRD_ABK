@@ -1,4 +1,8 @@
 
+
+# from sqlalchemy import Column, Integer, Float, String, DateTime, func, Enum, ForeignKey
+# from app.database import Base
+#
 # class Transaction(Base):
 #     __tablename__ = "transactions"
 #
@@ -9,16 +13,7 @@
 #     status = Column(Enum("pending", "completed", "failed", name="status_enum"), default="pending")  # 'pending', 'completed', 'failed'
 #     created_at = Column(DateTime, default=func.now())
 #     updated_at = Column(DateTime, default=func.now())
-#
 
-
-
-
-from sqlalchemy import Column, Integer, DECIMAL, String, ForeignKey, TIMESTAMP, func
-from sqlalchemy.dialects.postgresql import UUID
-import uuid
-from app.database import Base
-#
 # class Transaction(Base):
 #     __tablename__ = "transactions"
 #
@@ -29,7 +24,45 @@ from app.database import Base
 #     status = Column(String, default="pending")
 #     created_at = Column(DateTime, default=func.now())
 #     updated_at = Column(DateTime, default=func.now())
+#
+# from sqlalchemy import Column, Integer, Float, ForeignKey
+# from app.database import Base
+#
+# class Wallet(Base):
+#     __tablename__ = "wallets"
+#
+#     id = Column(Integer, primary_key=True, index=True)
+#     user_id = Column(Integer, nullable=False, unique=True)
+#     balance = Column(Float, default=0.0)
+#
+# # from sqlalchemy import Column, Integer, DECIMAL, String, TIMESTAMP, func
+# # from app.database import Base
+# # import uuid
+# #
+# # class Wallet(Base):
+# #     __tablename__ = "wallets"
+# #
+# #     id = Column(Integer, primary_key=True, index=True)
+# #     user_id = Column(String, default=str(uuid.uuid4()), unique=True, nullable=False)
+# #     balance = Column(DECIMAL(15, 2), nullable=False, default=0.00)
+# #     currency = Column(String(3), nullable=False)
+# #     created_at = Column(TIMESTAMP, default=func.now())
+# #     updated_at = Column(TIMESTAMP, default=func.now(), onupdate=func.now())
+#
+# class Transaction(Base):
+#     __tablename__ = "transactions"
+#
+#     id = Column(Integer, primary_key=True, index=True)
+#     wallet_id = Column(Integer, ForeignKey("wallets.id"), nullable=False)
+#     amount = Column(Float, nullable=False)
+#     transaction_type = Column(String, nullable=False)  # 'deposit' or 'withdrawal'
+#     status = Column(String, default="pending")
 
+
+from sqlalchemy import Column, Integer, DECIMAL, String, ForeignKey, TIMESTAMP, func
+from sqlalchemy.dialects.postgresql import UUID
+import uuid
+from app.database import Base
 
 class Wallet(Base):
     __tablename__ = "wallets"

@@ -1,0 +1,24 @@
+meta {
+  name: create wallet
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8004/wallets/
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "user_id": "550e8400-e29b-41d4-a716-446655440000",
+    "currency": "USD"
+  }
+  
+  
+}

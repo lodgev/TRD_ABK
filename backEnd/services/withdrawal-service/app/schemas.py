@@ -26,19 +26,15 @@ class TransactionStatusResponse(BaseModel):
         from_attributes = True
 
 
-# class BetCreate(BaseModel):
-#     user_id: str
-#     match_id: int
-#     bet_type: str
-#     selected_team: str
-#     amount: Decimal
-#     coefficient: Decimal
-#     potential_win: Decimal
+
+# class WalletBase(BaseModel):
+#     user_id: int
+#     balance: float
+#     currency: str
 #
+# class WalletResponse(WalletBase):
+#     id: int
+#     created_at: datetime
 #
-# class BetUpdate(BaseModel):
-#     status: str = None
-#     amount: float = None
-#     selected_team: str = None
-#     coefficient: float = None
-#     potential_win: float = None
+#     class Config:
+#         orm_mode = True

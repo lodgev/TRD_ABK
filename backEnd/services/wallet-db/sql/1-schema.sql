@@ -1,4 +1,3 @@
--- CREATE SCHEMA IF NOT EXISTS wallet;
 
 CREATE TABLE wallets (
     id SERIAL PRIMARY KEY,

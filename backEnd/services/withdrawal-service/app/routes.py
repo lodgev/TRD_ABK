@@ -5,13 +5,20 @@ from app import crud, schemas, database
 
 router = APIRouter(prefix="/withdrawals", tags=["Withdrawals"])
 
+# @router.post("/", response_model=schemas.TransactionResponse)
+# def create_withdrawal(withdrawal: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
+#     withdrawal_transaction = crud.create_withdrawal(db, withdrawal)
+#     if not withdrawal_transaction:
+#         raise HTTPException(status_code=400, detail="Withdrawal failed")
+#     return withdrawal_transaction
+
 @router.post("/", response_model=schemas.TransactionResponse)
 def create_withdrawal(withdrawal: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
-    withdrawal_transaction = crud.create_withdrawal(db, withdrawal)
-    if not withdrawal_transaction:
-        raise HTTPException(status_code=400, detail="Withdrawal failed")
-    return withdrawal_transaction
-
+    try:
+        transaction = crud.process_withdrawal(db, withdrawal)
+        return transaction
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
 
 # @router.post("/", response_model=schemas.TransactionResponse)
 # def create_withdrawal(withdrawal: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
