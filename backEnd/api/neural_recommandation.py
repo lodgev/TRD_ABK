@@ -7,11 +7,11 @@ from torch.utils.data import DataLoader, Dataset
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
-# Load feedback data
+
 feedback_file_path = 'feedback.csv'
 feedback_df = pd.read_csv(feedback_file_path)
 
-# Prepare interaction matrix
+
 def prepare_data(feedback_df):
     feedback_df = feedback_df[feedback_df['action'] == 'rated'].dropna(subset=['rating'])
     feedback_df['rating'] = feedback_df['rating'].astype(float)
@@ -26,10 +26,10 @@ def prepare_data(feedback_df):
 
 feedback_df, num_users, num_items = prepare_data(feedback_df)
 
-# Split into train and test sets
+# train and test sets
 train_df, test_df = train_test_split(feedback_df, test_size=0.2, random_state=42)
 
-# Define Dataset
+
 class FeedbackDataset(Dataset):
     def __init__(self, df):
         self.users = torch.tensor(df['user_id'].values, dtype=torch.long)
@@ -48,7 +48,7 @@ test_dataset = FeedbackDataset(test_df)
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
-# Define Neural Collaborative Filtering Model
+# Neural Collaborative Filtering Model
 class NCF(nn.Module):
     def __init__(self, num_users, num_items, embedding_dim=50):
         super(NCF, self).__init__()
@@ -73,7 +73,7 @@ model = NCF(num_users, num_items)
 criterion = nn.MSELoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
-# Train the model
+
 def train(model, train_loader, criterion, optimizer, epochs=10):
     model.train()
     for epoch in range(epochs):
@@ -87,7 +87,7 @@ def train(model, train_loader, criterion, optimizer, epochs=10):
             total_loss += loss.item()
         print(f"Epoch {epoch + 1}, Loss: {total_loss / len(train_loader)}")
 
-# Evaluate the model
+
 def evaluate(model, test_loader):
     model.eval()
     predictions, targets = [], []
@@ -103,7 +103,7 @@ def evaluate(model, test_loader):
 train(model, train_loader, criterion, optimizer, epochs=10)
 evaluate(model, test_loader)
 
-# Generate recommendations for a user
+# generer des recoco 
 def recommend_for_user(model, user_id, num_recommendations=10):
     model.eval()
     all_items = torch.arange(num_items, dtype=torch.long)
@@ -121,11 +121,11 @@ def map_article_ids_to_content(recommendations, articles_df):
     recommended_articles = articles_df.iloc[recommendations]
     return recommended_articles
 
-# Load articles
+
 ARTICLES_PATH = "news_test.csv"  # Path to your articles dataset
 articles_df = pd.read_csv(ARTICLES_PATH)
 
-# Define the Streamlit App
+
 def app():
     st.title("Personalized News Recommendation System with NCF")
 
@@ -140,10 +140,9 @@ def app():
         torch.save(model.state_dict(), model_path)
         st.success("Model trained and saved.")
 
-    # Select User
     user_id = st.selectbox("Select User ID", feedback_df['user_id'].unique())
     
-    # Generate Recommendations
+  
     if st.button("Get Recommendations"):
         recommendations = recommend_for_user(model, user_id)
         recommended_articles = map_article_ids_to_content(recommendations, articles_df)
@@ -158,7 +157,3 @@ def app():
 if __name__ == "__main__":
     app()
 
-""" # Example: Recommend top 10 articles for user 0
-user_id = 0
-recommendations = recommend_for_user(model, user_id)
-print(f"Top recommendations for user {user_id}: {recommendations}") """
