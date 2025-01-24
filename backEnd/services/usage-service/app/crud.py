@@ -19,52 +19,44 @@ def create_wallet(db: Session, wallet: schemas.WalletCreate):
     return new_wallet
 
 
-def update_wallet_balance(db: Session, wallet_id: int, amount: Decimal):
-    wallet = db.query(models.Wallet).filter(models.Wallet.id == wallet_id).first()
-
-    if not wallet:
-        raise ValueError("Wallet not found")
-
-    wallet.balance += Decimal(amount)
-    db.commit()
-    db.refresh(wallet)
-    return wallet
-
 def get_wallet_balance(db: Session, wallet_id: int):
     wallet = db.query(models.Wallet).filter(models.Wallet.id == wallet_id).first()
     if wallet:
         return {"wallet_id": wallet.id, "balance": wallet.balance}
     return None
 
-# def get_wallet_transactions(db: Session, wallet_id: int):
-#     return db.query(models.Transaction).filter(models.Transaction.wallet_id == wallet_id).all()
+# ...................
+# TODO: проверить баланс
 
-# def create_transaction(db: Session, transaction: schemas.TransactionCreate):
-#     usage = db.query(models.Wallet).filter(models.Wallet.id == transaction.wallet_id).first()
-#
-#     if not usage:
-#         raise HTTPException(status_code=404, detail="Wallet not found")
-#
-#     # Проверка доступного баланса для вывода средств
-#     if transaction.transaction_type == "withdrawal" and usage.balance < transaction.amount:
-#         raise HTTPException(status_code=400, detail="Insufficient funds")
-#
-#     # Создание транзакции
-#     new_transaction = models.Transaction(
-#         wallet_id=transaction.wallet_id,
-#         amount=transaction.amount,
-#         transaction_type=transaction.transaction_type,
-#         status="completed"
+def create_bet(db: Session, bet: schemas.BetCreate):
+    new_bet = models.Bet(**bet.dict())
+    db.add(new_bet)
+    db.commit()
+    db.refresh(new_bet)
+    return new_bet
+
+
+
+# Операции с кошельком (wallet-db)
+def get_wallet(db: Session, wallet_id: int):
+    return db.query(models.Wallet).filter(models.Wallet.id == wallet_id).first()
+
+def update_wallet_balance(db: Session, wallet_id: int, amount: float):
+    wallet = db.query(models.Wallet).filter(models.Wallet.id == wallet_id).first()
+    if wallet:
+        wallet.balance += amount
+        db.commit()
+        db.refresh(wallet)
+    return wallet
+
+# Операции со ставками (betts-db)
+# def create_bet(db: Session, bet: schemas.BetCreate):
+#     new_bet = models.Bet(
+#         user_id=bet.user_id,
+#         amount=bet.amount,
+#         bet_type=bet.bet_type
 #     )
-#
-#     # Обновление баланса
-#     if transaction.transaction_type == "deposit":
-#         usage.balance += Decimal(transaction.amount)
-#     elif transaction.transaction_type == "withdrawal":
-#         usage.balance -= Decimal(transaction.amount)
-#
-#     db.add(new_transaction)
+#     db.add(new_bet)
 #     db.commit()
-#     db.refresh(usage)
-#     db.refresh(new_transaction)
-#     return new_transaction
+#     db.refresh(new_bet)
+#     return new_bet
