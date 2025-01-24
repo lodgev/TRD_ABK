@@ -16,7 +16,7 @@ class WalletResponse(WalletBase):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class WalletBalanceResponse(BaseModel):
     wallet_id: int

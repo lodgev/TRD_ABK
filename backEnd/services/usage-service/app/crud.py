@@ -3,6 +3,11 @@ from app import models, schemas
 from decimal import Decimal
 
 def create_wallet(db: Session, wallet: schemas.WalletCreate):
+    existing_wallet = db.query(models.Wallet).filter(models.Wallet.user_id == wallet.user_id).first()
+
+    if existing_wallet:
+        raise ValueError("Wallet for this user already exists")
+
     new_wallet = models.Wallet(
         user_id=wallet.user_id,
         balance=Decimal("0.00"),
