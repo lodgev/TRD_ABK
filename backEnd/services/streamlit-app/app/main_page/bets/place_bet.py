@@ -5,7 +5,6 @@ API_BASE_URL = "http://betting-service:80/betts"
 API_MATCH_BASE_URL = "http://match-service:80/matches"
 
 def get_match_details(match_id):
-    """Fetch match details by match ID."""
     try:
         response = requests.get(f"{API_MATCH_BASE_URL}/{match_id}")
         if response.status_code == 200:
@@ -19,7 +18,6 @@ def get_match_details(match_id):
     
 # === update the bates after button "Place bet - confrim"
 def update_bet_status(bet_id, new_status):
-    """Update the status of a bet."""
     try:
         response = requests.put(f"{API_BASE_URL}/update-bet/{bet_id}", json={"status": new_status})
         if response.status_code == 200:

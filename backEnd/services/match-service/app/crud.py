@@ -1,6 +1,3 @@
-# crud - create read update delete 
-# describe all post/get etc request in code
-
 from sqlalchemy.orm import Session
 from . import models, schemas
 

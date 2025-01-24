@@ -20,7 +20,6 @@ def update_bet(db: Session, bet_id: int, updates: dict):
     if not bet:
         return None
 
-    # Dynamically update fields based on the updates dictionary
     for field, value in updates.items():
         if hasattr(bet, field):  # Ensure the Bet model has the attribute
             setattr(bet, field, value)

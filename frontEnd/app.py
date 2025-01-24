@@ -6,7 +6,6 @@ import json
 API_HOST = "free-api-live-football-data.p.rapidapi.com"
 API_KEY = "3c99262600msh5da2d3d13033579p1c677ejsnc94020f9ff0e"
 
-# Fonction pour récupérer les données de l'API
 def fetch_trending_news():
     conn = http.client.HTTPSConnection(API_HOST)
     headers = {
