@@ -1,0 +1,15 @@
+meta {
+  name: status by tr id
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8003/withdrawals/status/3
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}

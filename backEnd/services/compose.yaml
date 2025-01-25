@@ -45,6 +45,15 @@ services:
     networks:
       - tdl
 
+  wallet-db:
+    image: postgres
+    env_file:
+      - ./wallet-db/.env
+    volumes:
+      - ./wallet-db/sql:/docker-entrypoint-initdb.d
+    networks:
+      - tdl
+
   adminer:
     container_name: adminer
     image: adminer
@@ -147,6 +156,64 @@ services:
       - tdl
     depends_on:
       match-db:
+        condition: service_started
+      message-broker:
+        condition: service_healthy
+
+  deposit-service:
+    build:
+      context: deposit-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./deposit-service:/app
+    ports:
+      - 8002:80
+    env_file:
+      - ./deposit-service/.env
+    networks:
+      - tdl
+    depends_on:
+      wallet-db:
+        condition: service_started
+      message-broker:
+        condition: service_healthy
+
+  withdrawal-service:
+    build:
+      context: withdrawal-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./withdrawal-service:/app
+    ports:
+      - 8003:80
+    env_file:
+      - ./withdrawal-service/.env
+    networks:
+      - tdl
+    depends_on:
+      wallet-db:
+        condition: service_started
+      message-broker:
+        condition: service_healthy
+
+  usage-service:
+    build:
+      context: usage-service
+      dockerfile: Dockerfile
+    volumes:
+      - ./usage-service:/app
+    ports:
+      - 8004:80
+    env_file:
+      - ./usage-service/.env
+    networks:
+      - tdl
+    depends_on:
+      wallet-db:
+        condition: service_started
+      deposit-service:
+        condition: service_started
+      withdrawal-service:
         condition: service_started
       message-broker:
         condition: service_healthy

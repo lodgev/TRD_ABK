@@ -3,6 +3,7 @@ from app.auth_form.logout import logout_user
 from app.main_page.matches.show_clubs import show_clubs
 from app.main_page.matches.show_matches import show_matches
 from app.main_page.bets.bet_main import run_main_bet
+from app.main_page.wallet.wallet_main import run_wallet_section
 
 
 def run_main_app():
@@ -34,7 +35,7 @@ def run_main_app():
     st.title("TRD - The Real Deal")
 
 
-    main_mode = st.sidebar.selectbox("Select an option", ["Matches", "Clubs", "Profile", "Betting"])
+    main_mode = st.sidebar.selectbox("Select an option", ["Matches", "Clubs", "Profile", "Betting", "Wallet"])
 
     if main_mode == "Matches":
         show_matches()
@@ -44,4 +45,6 @@ def run_main_app():
         st.write("Profile section is in progress...")
     elif main_mode == "Betting":
         run_main_bet()
+    elif main_mode == "Wallet":
+        run_wallet_section()
 
