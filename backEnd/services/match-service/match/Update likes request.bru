@@ -4,8 +4,14 @@ meta {
   seq: 7
 }
 
-put {
-  url: http://localhost:8000/clubs/1/update-likes
-  body: none
+post {
+  url: http://localhost:8000/clubs/539/update-likes
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "action": "like"
+  }
 }

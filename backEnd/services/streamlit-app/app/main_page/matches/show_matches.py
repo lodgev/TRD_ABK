@@ -6,6 +6,8 @@ import datetime
 API_BASE_URL_MATCHES = "http://match-service:80/matches"
 API_BASE_URL_BETTING = "http://betting-service:80/betts"
 
+
+
 def fetch_matches():
     try:
         response = requests.get(API_BASE_URL_MATCHES)
@@ -30,6 +32,7 @@ def add_to_betting_list(match_id, home_team, away_team, user_id, home_coeff, awa
         "status": "waiting_list"
     }
 
+
     try:
         response = requests.post(f"{API_BASE_URL_BETTING}/create-bet", json=bet_payload)
         if response.status_code in [200, 201]:
@@ -40,6 +43,9 @@ def add_to_betting_list(match_id, home_team, away_team, user_id, home_coeff, awa
         st.error(f"An error occurred while adding to the betting list: {e}")
 
 def show_matches():
+    
+    user_id = st.session_state.get("user_id")
+    
     st.title("Matches")
 
     matches = fetch_matches()
