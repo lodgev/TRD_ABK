@@ -49,13 +49,22 @@ class WalletBalanceResponse(BaseModel):
 # ......................
 
 class BetCreate(BaseModel):
-    user_id: str
+    user_id: UUID
     match_id: int
     bet_type: str
     selected_team: str
     amount: Decimal
     coefficient: Decimal
     potential_win: Decimal
+
+# class BetCreate(BaseModel):
+#     user_id: UUID  # Убедитесь, что используете правильный UUID тип
+#     match_id: str
+#     bet_type: str
+#     amount: float
+#     selected_team: str
+#     coefficient: condecimal(max_digits=10, decimal_places=2)
+#     potential_win: condecimal(max_digits=10, decimal_places=2)
 
 # Схемы для ставок (betts-db)
 # class BetCreate(BaseModel):
