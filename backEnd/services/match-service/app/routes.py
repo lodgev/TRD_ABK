@@ -43,6 +43,25 @@ def get_match(match_id: int, db: Session = Depends(database.get_db)):
         raise HTTPException(status_code=404, detail="Match not found")
     return match
 
+# === matches ===
+
+@router.post("/matches", response_model=schemas.Match)
+def add_match(match: schemas.MatchCreate, db: Session = Depends(database.get_db)):
+    return crud.add_match(db, match)
+
+@router.put("/matches/{match_id}", response_model=schemas.Match)
+def update_match(match_id: int, match: schemas.MatchUpdate, db: Session = Depends(database.get_db)):
+    updated_match = crud.update_match(db, match_id, match)
+    if not updated_match:
+        raise HTTPException(status_code=404, detail="Match not found")
+    return updated_match
+
+@router.delete("/matches/{match_id}", response_model=schemas.Match)
+def cancel_match(match_id: int, db: Session = Depends(database.get_db)):
+    deleted_match = crud.cancel_match(db, match_id)
+    if not deleted_match:
+        raise HTTPException(status_code=404, detail="Match not found")
+    return deleted_match
 
 # not working
 # @router.get("/matches/date/{date}", response_model=list[schemas.Match])
