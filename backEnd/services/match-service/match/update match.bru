@@ -1,0 +1,24 @@
+meta {
+  name: update match
+  type: http
+  seq: 9
+}
+
+put {
+  url: http://localhost:8000/matches/4621592
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "home_score": 2,
+    "away_score": 2,
+    "score_string": "2-2"
+  }
+  
+}
