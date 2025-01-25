@@ -196,16 +196,16 @@ services:
       message-broker:
         condition: service_healthy
 
-  usage-service:
+  wallet-service:
     build:
-      context: usage-service
+      context: wallet-service
       dockerfile: Dockerfile
     volumes:
-      - ./usage-service:/app
+      - ./wallet-service:/app
     ports:
       - 8004:80
     env_file:
-      - ./usage-service/.env
+      - ./wallet-service/.env
     networks:
       - tdl
     depends_on:

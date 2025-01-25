@@ -5,14 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app import crud, schemas, database
 
-router = APIRouter(prefix="/deposits", tags=["Deposits"])
-
-# @router.post("/", response_model=schemas.TransactionResponse)
-# def create_deposit(deposit: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
-#     deposit_transaction = crud.create_transaction(db, deposit)
-#     if not deposit_transaction:
-#         raise HTTPException(status_code=400, detail="Deposit failed")
-#     return deposit_transaction
+router = APIRouter(prefix="/deposit", tags=["Deposit"])
 
 @router.post("/", response_model=schemas.TransactionResponse)
 def create_deposit(deposit: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
@@ -23,11 +16,17 @@ def create_deposit(deposit: schemas.TransactionCreate, db: Session = Depends(dat
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.get("/", response_model=list[schemas.TransactionResponse])
-def get_transactions(db: Session = Depends(database.get_db)):
-    transactions = crud.get_transactions(db)
+@router.get("/{wallet_id}", response_model=list[schemas.TransactionResponse])
+def get_deposits(wallet_id: int, db: Session = Depends(database.get_db)):
+    transactions = crud.get_deposits(db, wallet_id)
     if not transactions:
-        raise HTTPException(status_code=404, detail="No transactions found")
+        raise HTTPException(status_code=404, detail="No deposits found")
     return transactions
 
 
+@router.get("/status/{transaction_id}", response_model=schemas.TransactionStatusResponse)
+def get_deposit_status(transaction_id: int, db: Session = Depends(database.get_db)):
+    status = crud.get_deposit_status(db, transaction_id)
+    if not status:
+        raise HTTPException(status_code=404, detail="Deposit not found")
+    return status

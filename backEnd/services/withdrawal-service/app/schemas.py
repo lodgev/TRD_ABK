@@ -25,16 +25,3 @@ class TransactionStatusResponse(BaseModel):
     class Config:
         from_attributes = True
 
-
-
-# class WalletBase(BaseModel):
-#     user_id: int
-#     balance: float
-#     currency: str
-#
-# class WalletResponse(WalletBase):
-#     id: int
-#     created_at: datetime
-#
-#     class Config:
-#         orm_mode = True
