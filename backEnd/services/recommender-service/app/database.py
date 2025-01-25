@@ -8,6 +8,7 @@ DATABASE_URL = (
     f"@recommender-db/{os.getenv('POSTGRES_DB')}"
 )
 
+
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

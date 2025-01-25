@@ -5,12 +5,12 @@ import requests
 import pandas as pd
 
 API_CLUBS_BASE_URL = "http://match-service:80/clubs"
-API_RECOMMENDER_BASE_URL = "http://recommender-service:80/user-actions"
-API_MATCH_BASE_URL = "http://match-service:80/matches"
+API_RECOMMENDER_BASE_URL = "http://recommender-service:80/actions"
+
 
 
 def record_user_action(club_id, action):
-    """Record the user action in the `user_actions` table."""
+
     user_id = st.session_state.get("user_id")
     if not user_id:
         st.warning("You need to log in to perform this action.")
@@ -23,7 +23,7 @@ def record_user_action(club_id, action):
             "action": action,  # "liked" or "disliked"
         }
         response = requests.post(API_RECOMMENDER_BASE_URL, json=payload)
-        if response.status_code == 201:
+        if response.status_code == 200:
             st.success(f"Action '{action}' recorded for club ID {club_id}.")
         else:
             st.error(f"Failed to record user action: {response.status_code}")
@@ -32,10 +32,9 @@ def record_user_action(club_id, action):
 
 
 def update_club_likes(club_id, action):
-    """Update the likes/dislikes count in the clubs table."""
     try:
         payload = {"action": action}  # "like" or "dislike"
-        response = requests.put(f"{API_CLUBS_BASE_URL}/{club_id}/update-likes", json=payload)
+        response = requests.post(f"{API_CLUBS_BASE_URL}/{club_id}/update-likes", json=payload)
         if response.status_code == 200:
             st.success(f"Club {club_id} updated successfully!")
         else:
@@ -109,6 +108,7 @@ def show_clubs():
                     <p><b>Elo:</b> {row["elo"]}</p>
                     <p><b>Start Date:</b> {row["start_date"]}</p>
                     <p><b>End Date:</b> {row["end_date"]}</p>
+                    <p><b>Likes:</b> {row["likes"]}</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -118,7 +118,9 @@ def show_clubs():
                 if st.button(f"Like {row['club']}", key=f"like_{row['id']}"):
                     record_user_action(row["id"], "liked")
                     update_club_likes(row["id"], "like")
+                    st.rerun()
             with col2:
                 if st.button(f"Dislike {row['club']}", key=f"dislike_{row['id']}"):
                     record_user_action(row["id"], "disliked")
                     update_club_likes(row["id"], "dislike")
+                    st.rerun()

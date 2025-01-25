@@ -10,12 +10,11 @@ class Club(BaseModel):
     elo: float
     start_date: date
     end_date: date
-
-class ClubUpdateResponse(BaseModel):
-    club_id: int
-    club_name: str
     likes: int
-    dislikes: int
+    
+    
+class LikeDislikeRequest(BaseModel):
+    action: str
 
 
 class Match(BaseModel):

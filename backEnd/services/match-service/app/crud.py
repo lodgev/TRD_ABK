@@ -16,7 +16,7 @@ def update_likes(db: Session, club_id: int, action: str):
     if action == "like":
         club.likes += 1
     elif action == "dislike":
-        club.dislikes -= 1
+        club.likes -= 1
 
     db.commit()
     db.refresh(club)

@@ -22,12 +22,4 @@ CREATE TABLE matches (
     away_coeff FLOAT NOT NULL
 );
 
-CREATE TABLE match_club_likes (
-    id SERIAL PRIMARY KEY,
-    match_id BIGINT NOT NULL REFERENCES matches(match_id) ON DELETE CASCADE,
-    club_id INTEGER NOT NULL REFERENCES clubs(id) ON DELETE CASCADE,
-    likes_count INTEGER NOT NULL DEFAULT 0
-);
-
-
 
