@@ -34,8 +34,17 @@ def read_wallet(wallet_id: int, db: Session = Depends(get_wallet_db)):
 #     return {"message": "Deposit successful", "balance": updated_wallet.balance}
 
 # Работа со ставками
-@router.post("/bets/", response_model=schemas.BetResponse)
+# @router.post("/bets/", response_model=schemas.BetResponse)
+# def place_bet(bet: schemas.BetCreate, db: Session = Depends(get_betts_db)):
+#     new_bet = crud.create_bet(db, bet)
+#     return new_bet
+
+@router.post("/bets/", response_model=schemas.BetCreate)
 def place_bet(bet: schemas.BetCreate, db: Session = Depends(get_betts_db)):
     new_bet = crud.create_bet(db, bet)
     return new_bet
 
+# @router.post("/create-bet")
+# def create_bet(bet: BetCreate, db: Session = Depends(get_db)):
+#     print("Received JSON:", bet.dict())
+#     return crud.create_bet(db, bet)

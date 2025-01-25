@@ -35,8 +35,6 @@ def create_bet(db: Session, bet: schemas.BetCreate):
     db.refresh(new_bet)
     return new_bet
 
-
-
 # Операции с кошельком (wallet-db)
 def get_wallet(db: Session, wallet_id: int):
     return db.query(models.Wallet).filter(models.Wallet.id == wallet_id).first()
