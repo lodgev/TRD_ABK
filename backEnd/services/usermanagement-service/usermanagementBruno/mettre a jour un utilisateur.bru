@@ -5,7 +5,21 @@ meta {
 }
 
 put {
-  url: http://localhost:6666/UserManagementService/users/[user_id]
-  body: none
+  url: http://localhost:6666/UserManagementService/users/b5ce9b39-f627-4a2e-8da6-8491b5a5ef6a
+  body: json
   auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "aliceUpdated@wonderland.com",
+    "password": "mySecurePassword123",
+    "firstName": "Alice",
+    "lastName": "WhiteRabbit",
+    "isVerified": false
+  }
 }
