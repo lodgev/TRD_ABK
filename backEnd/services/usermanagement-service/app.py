@@ -30,16 +30,23 @@ def get_db_connection():
 def get_users():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT id, email, firstname, lastname FROM public.users;")
+    cur.execute("SELECT id, email, firstname, lastname, is_verified, createdat FROM public.users;")
     users = cur.fetchall()
     cur.close()
     conn.close()
 
     users_list = [
-        {"id": str(user[0]), "email": user[1], "firstName": user[2], "lastName": user[3]}
+        {
+            "id": str(user[0]),
+            "email": user[1],
+            "firstName": user[2],
+            "lastName": user[3],
+            "isVerified": user[4],
+            "createdAt": user[5].strftime('%H:%M:%S')
+        }
         for user in users
     ]
-    
+
     return jsonify({"users": users_list})
 
 # Récupérer un utilisateur par ID
@@ -47,13 +54,20 @@ def get_users():
 def get_user(user_id):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute("SELECT id, email, firstname, lastname FROM public.users WHERE id = %s;", (str(user_id),))
+    cur.execute("SELECT id, email, firstname, lastname, is_verified, createdat FROM public.users WHERE id = %s;", (str(user_id),))
     user = cur.fetchone()
     cur.close()
     conn.close()
 
     if user:
-        user_data = {"id": str(user[0]), "email": user[1], "firstName": user[2], "lastName": user[3]}
+        user_data = {
+            "id": str(user[0]),
+            "email": user[1],
+            "firstName": user[2],
+            "lastName": user[3],
+            "isVerified": user[4],
+            "createdAt": user[5].strftime('%H:%M:%S')
+        }
         return jsonify({"user": user_data})
     else:
         return jsonify({"error": "User not found"}), 404
@@ -61,15 +75,19 @@ def get_user(user_id):
 # Ajouter un utilisateur
 @app.route('/UserManagementService/users', methods=['POST'])
 def create_user():
-    if not request.json or 'email' not in request.json or 'password' not in request.json or 'firstName' not in request.json or 'lastName' not in request.json:
+    required_fields = ['email', 'password', 'firstName', 'lastName', 'isVerified']
+    if not request.json or not all(field in request.json for field in required_fields):
         return jsonify({"error": "Missing fields"}), 400
 
     new_user = request.json
     conn = get_db_connection()
     cur = conn.cursor()
     cur.execute(
-        "INSERT INTO public.users (id, email, password, firstname, lastname, createdat) VALUES (gen_random_uuid(), %s, %s, %s, %s, now()) RETURNING id;",
-        (new_user["email"], new_user["password"], new_user["firstName"], new_user["lastName"])
+        """
+        INSERT INTO public.users (id, email, password, firstname, lastname, is_verified, createdat) 
+        VALUES (gen_random_uuid(), %s, %s, %s, %s, %s, now()) RETURNING id;
+        """,
+        (new_user["email"], new_user["password"], new_user["firstName"], new_user["lastName"], new_user["isVerified"])
     )
     new_id = cur.fetchone()[0]
     conn.commit()
@@ -120,6 +138,9 @@ def update_user(user_id):
     if "lastName" in updated_data:
         updates.append("lastname = %s")
         values.append(updated_data["lastName"])
+    if "isVerified" in updated_data:
+        updates.append("is_verified = %s")
+        values.append(updated_data["isVerified"])
 
     if not updates:
         return jsonify({"error": "No fields to update"}), 400
@@ -151,7 +172,8 @@ def is_adult(user_id):
     if not user:
         return jsonify({"error": "User not found"}), 404
 
-    return jsonify({"is_adult": True})  # Mettre ici une logique réelle basée sur l'âge
+    # Remplacer cette logique par une véritable vérification basée sur l'âge si disponible
+    return jsonify({"is_adult": True})
 
 # Démarrer l'application
 if __name__ == '__main__':
