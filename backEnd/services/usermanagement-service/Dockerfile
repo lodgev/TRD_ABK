@@ -1,20 +1,21 @@
-# Utiliser l'image officielle de Python 3.12.7
+# Utiliser l'image officielle de Python
 FROM python:3.12.7-slim
 
-# Définir le répertoire de travail dans le conteneur
+# Installer les bibliothèques nécessaires
+RUN apt-get update && apt-get install -y libpq-dev gcc && rm -rf /var/lib/apt/lists/*
+
+# Définir le répertoire de travail
 WORKDIR /app
 
-# Copier les fichiers requirements.txt contenant les dépendances
+# Copier les dépendances et les installer
 COPY requirements.txt .
-
-# Installer les dépendances Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier le reste des fichiers de l'application
+# Copier l'application
 COPY . .
 
-# Exposer le port utilisé par Flask
+# Exposer le port de Flask
 EXPOSE 6666
 
-# Définir la commande de démarrage du service Flask
+# Lancer l'application Flask
 CMD ["python", "app.py"]

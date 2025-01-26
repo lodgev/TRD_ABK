@@ -1,0 +1,25 @@
+meta {
+  name: creer utilisateur
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:6666/UserManagementService/users
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "alice@wonderland.com",
+    "password": "mySecurePassword123",
+    "firstName": "Alice",
+    "lastName": "Wonderland",
+    "isVerified": false
+  }
+}
