@@ -49,17 +49,19 @@ def add_match(db: Session, match: schemas.MatchCreate):
     db.refresh(new_match)
     return new_match
 
+
 def update_match(db: Session, match_id: int, updated_match: schemas.MatchUpdate):
     match = db.query(models.Match).filter(models.Match.match_id == match_id).first()
     if not match:
         return None
-    
+
     for key, value in updated_match.dict(exclude_unset=True).items():
         setattr(match, key, value)
-    
+
     db.commit()
     db.refresh(match)
     return match
+
 
 def cancel_match(db: Session, match_id: int):
     match = db.query(models.Match).filter(models.Match.match_id == match_id).first()
@@ -88,6 +90,10 @@ def calculate_odds(elo_a: float, elo_b: float):
         "away_win": round(prob_b, 4)
     }
 
+def get_all_odds(db: Session):
+    return db.query(models.Odds).all()
+
+
 def add_odds(db: Session, match_id: int):
     match = db.query(models.Match).filter(models.Match.match_id == match_id).first()
     if not match:
@@ -112,22 +118,30 @@ def add_odds(db: Session, match_id: int):
 
     return odds
 
+def suppress_odd_for_match(db: Session, match_id: int):
+    odds = db.query(models.Odds).filter(models.Odds.match_id == match_id).first()
+    if not odds:
+        return False
+
+    db.delete(odds)
+    db.commit()
+    return True
+
 
 def update_odds(db: Session, match_id: int):
     match = db.query(models.Match).filter(models.Match.match_id == match_id).first()
     if not match:
         return None
 
-    home_club = db.query(models.Club).filter(models.Club.club == match.home_team).first()
-    away_club = db.query(models.Club).filter(models.Club.club == match.away_team).first()
+    home_team = db.query(models.Club).filter(models.Club.club == match.home_team).first()
+    away_team = db.query(models.Club).filter(models.Club.club == match.away_team).first()
 
-    if not home_club or not away_club:
-        return None
+    if not home_team or not away_team:
+        return None 
 
-    odds_data = calculate_odds(home_club.elo, away_club.elo)
+    odds_data = calculate_odds(home_team.elo, away_team.elo)
 
     odds = db.query(models.Odds).filter(models.Odds.match_id == match_id).first()
-
     if not odds:
         odds = models.Odds(
             match_id=match_id,
@@ -143,5 +157,42 @@ def update_odds(db: Session, match_id: int):
 
     db.commit()
     db.refresh(odds)
-
     return odds
+
+
+def get_odd_for_match(db: Session, match_id: int):
+    return db.query(models.Odds).filter(models.Odds.match_id == match_id).first()
+
+def update_all_odds(db: Session):
+    matches = db.query(models.Match).all()
+    updated_odds_list = []
+
+    for match in matches:
+        home_team = db.query(models.Club).filter(models.Club.club == match.home_team).first()
+        away_team = db.query(models.Club).filter(models.Club.club == match.away_team).first()
+
+        if not home_team or not away_team:
+            continue
+
+        odds_data = calculate_odds(home_team.elo, away_team.elo)
+
+        odds = db.query(models.Odds).filter(models.Odds.match_id == match.match_id).first()
+        if not odds:
+            odds = models.Odds(
+                match_id=match.match_id,
+                home_win=odds_data["home_win"],
+                draw=odds_data["draw"],
+                away_win=odds_data["away_win"],
+            )
+            db.add(odds)
+        else:
+            # Update existing odds
+            odds.home_win = odds_data["home_win"]
+            odds.draw = odds_data["draw"]
+            odds.away_win = odds_data["away_win"]
+
+        db.commit()
+        db.refresh(odds)
+        updated_odds_list.append(odds)
+
+    return updated_odds_list
