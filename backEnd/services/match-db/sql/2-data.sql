@@ -1,3 +1,10 @@
+INSERT INTO odds (match_id, home_win, draw, away_win) VALUES
+(1, 2.36, 2.66, 3.55),
+(2, 1.73, 2.78, 3.54),
+(3, 2.31, 2.27, 1.80),
+(4, 1.96, 3.71, 3.08),
+(5, 2.32, 2.95, 3.79);
+
 INSERT INTO clubs (rank, club, country, level, elo, start_date, end_date, likes) VALUES
 (1, 'Manchester City', 'ENG', '1', 2061.38452148, '2024-09-15', '2024-09-18', '30'),
 (2, 'Real Madrid', 'ESP', '1', 1993.12133789, '2024-09-15', '2024-09-17', '65'),

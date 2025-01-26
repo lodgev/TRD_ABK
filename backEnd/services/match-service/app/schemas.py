@@ -28,3 +28,10 @@ class Match(BaseModel):
     home_coeff: float
     away_coeff: float
 
+
+
+class Odds(BaseModel):
+    match_id: int
+    home_win: float
+    draw: float
+    away_win: float

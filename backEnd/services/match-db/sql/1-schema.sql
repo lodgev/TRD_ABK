@@ -22,4 +22,11 @@ CREATE TABLE matches (
     away_coeff FLOAT NOT NULL
 );
 
+CREATE TABLE odds (
+    match_id BIGINT PRIMARY KEY,
+    home_win FLOAT NOT NULL,
+    draw FLOAT NOT NULL,
+    away_win FLOAT NOT NULL
+);
+
 

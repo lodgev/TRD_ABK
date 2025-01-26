@@ -67,3 +67,16 @@ def cancel_match(match_id: int, db: Session = Depends(database.get_db)):
 # @router.get("/matches/date/{date}", response_model=list[schemas.Match])
 # def get_matches_by_date(date: str, db: Session = Depends(database.get_db)):
 #     return crud.get_matches_by_date(db, date)
+
+# === odds ===
+
+@router.post("/odds", response_model=schemas.Odds)
+def add_odds(odds: schemas.OddsCreate, db: Session = Depends(database.get_db)):
+    return crud.add_odds(db, odds.match_id, odds.home_win, odds.draw, odds.away_win)
+
+@router.put("/odds/{match_id}", response_model=schemas.Odds)
+def update_odds(match_id: int, odds: schemas.OddsUpdate, db: Session = Depends(database.get_db)):
+    updated_odds = crud.update_odds(db, match_id, odds.home_win, odds.draw, odds.away_win)
+    if not updated_odds:
+        raise HTTPException(status_code=404, detail="Odds not found for the match")
+    return updated_odds

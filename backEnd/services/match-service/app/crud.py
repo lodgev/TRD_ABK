@@ -71,4 +71,33 @@ def cancel_match(db: Session, match_id: int):
     return match
 
 
+# === odds ===
+
+def add_odds(db: Session, match_id: int, home_win: float, draw: float, away_win: float):
+    odds = models.Odds(
+        match_id=match_id,
+        home_win=home_win,
+        draw=draw,
+        away_win=away_win
+    )
+    db.add(odds)
+    db.commit()
+    db.refresh(odds)
+    return odds
+
+def update_odds(db: Session, match_id: int, home_win: float = None, draw: float = None, away_win: float = None):
+    odds = db.query(models.Odds).filter(models.Odds.match_id == match_id).first()
+    if not odds:
+        return None
+
+    if home_win is not None:
+        odds.home_win = home_win
+    if draw is not None:
+        odds.draw = draw
+    if away_win is not None:
+        odds.away_win = away_win
+
+    db.commit()
+    db.refresh(odds)
+    return odds
 
