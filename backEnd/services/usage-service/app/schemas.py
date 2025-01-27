@@ -28,6 +28,9 @@ class WalletBalanceResponse(BaseModel):
     currency: str
 
 
+class WalletUpdate(BaseModel):
+    amount: float
+
 # ......................
 
 class BetCreate(BaseModel):

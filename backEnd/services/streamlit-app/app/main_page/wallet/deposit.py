@@ -6,6 +6,7 @@ API_BASE_URL_USAGE = "http://usage-service:80"
 
 
 def deposit_funds():
+    st.divider()
     st.subheader("Deposit Funds")
     if "user_id" not in st.session_state or st.session_state.user_id is None:
         st.warning("Please log in to access your wallet.")

@@ -2,8 +2,9 @@ import streamlit as st
 from app.main_page.wallet.deposit import deposit_funds
 from app.main_page.wallet.withdraw import withdraw_funds
 from app.main_page.wallet.check_balance import check_balance
+
 def run_wallet_section():
-    st.title("💰 Wallet Management")
+    st.title("Wallet Management")
 
     action = st.sidebar.radio("Choose an action", ["Check Balance", "Deposit Funds", "Withdraw Funds"])
 

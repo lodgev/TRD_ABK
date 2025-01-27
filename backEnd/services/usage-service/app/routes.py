@@ -52,6 +52,8 @@
 #         raise HTTPException(status_code=404, detail=str(e))
 
 import uuid
+from decimal import Decimal
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_wallet_db, get_betts_db
@@ -101,3 +103,23 @@ def create_wallet(wallet: schemas.WalletCreate, db: Session = Depends(get_wallet
 @router.post("/create-bet", response_model=schemas.BetCreate)
 def place_bet(bet: schemas.BetCreate, wallet_db: Session = Depends(get_wallet_db), bet_db: Session = Depends(get_betts_db)):
     return crud.create_bet(wallet_db, bet_db, bet)
+
+
+@router.put("/{wallet_id}/update-balance")
+def update_balance(wallet_id: int, request: schemas.WalletUpdate, db: Session = Depends(get_wallet_db)):
+    wallet = crud.get_wallet(db, wallet_id)
+    if not wallet:
+        raise HTTPException(status_code=404, detail="Wallet not found")
+
+    try:
+        amount = Decimal(str(request.amount))  # Преобразование в Decimal
+        if wallet.balance + amount < Decimal("0"):
+            raise HTTPException(status_code=400, detail="Insufficient funds")
+
+        wallet.balance += amount  # Корректное обновление баланса
+        db.commit()
+        db.refresh(wallet)
+        return {"id": wallet.id, "balance": wallet.balance, "currency": wallet.currency}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error updating balance: {str(e)}")
