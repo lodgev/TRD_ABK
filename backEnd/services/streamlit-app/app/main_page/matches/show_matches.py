@@ -5,7 +5,7 @@ import datetime
 
 API_BASE_URL_MATCHES = "http://match-service:80/matches"
 API_BASE_URL_BETTING = "http://betting-service:80/betts"
-
+API_BASE_URL_ODDS = "http://match-service:80/odds"
 
 
 def fetch_matches():
@@ -19,6 +19,29 @@ def fetch_matches():
     except Exception as e:
         st.error(f"An error occurred while fetching matches: {e}")
         return []
+
+def fetch_odds(match_id):
+    try:
+        response = requests.get(f"{API_BASE_URL_ODDS}/{match_id}")
+        if response.status_code == 200:
+            return response.json()
+        else:
+            st.error(f"Failed to fetch odds for Match ID {match_id}: {response.status_code}")
+            return None
+    except Exception as e:
+        st.error(f"An error occurred while fetching odds: {e}")
+        return None
+
+def update_odds(match_id):
+    try:
+        response = requests.put(f"{API_BASE_URL_ODDS}/{match_id}")
+        if response.status_code == 200:
+            st.success(f"Odds updated successfully for Match ID {match_id}!")
+        else:
+            st.error(f"Failed to update odds for Match ID {match_id}: {response.status_code}")
+    except Exception as e:
+        st.error(f"An error occurred while updating odds: {e}")
+
 
 def add_to_betting_list(match_id, home_team, away_team, user_id, home_coeff, away_coeff):    
     bet_payload = {
@@ -82,16 +105,34 @@ def show_matches():
     # ==== show the list of matches ====
     for _, row in df.iterrows():
         with st.container():
+            odds = fetch_odds(row["match_id"])
+            if odds:
+                odds_text = f"""
+                <p><b>Odds:</b></p>
+                <ul>
+                    <li>Home Win: {odds['home_win']}</li>
+                    <li>Draw: {odds['draw']}</li>
+                    <li>Away Win: {odds['away_win']}</li>
+                </ul>
+                """
+            else:
+                odds_text = "<p><b>Odds:</b> Not available</p>"
+            
             st.markdown(
                 f"""
                 <div style='border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin: 10px;'>
                     <h3>{row["home_team"]} vs {row["away_team"]}</h3>
                     <p><b>Date:</b> {row["match_date"]}</p>
-                    <p><b>Home Coefficient:</b> {row["home_coeff"]}</p>
-                    <p><b>Away Coefficient:</b> {row["away_coeff"]}</p>
+                    {odds_text}
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
-            if st.button(f"Add to betting list ({row['match_id']})", key=f"add_{row['match_id']}"):
-                add_to_betting_list(row["match_id"], row["home_team"], row["away_team"], user_id, row['home_coeff'], row['away_coeff'])
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button(f"Add to betting list ({row['match_id']})", key=f"add_{row['match_id']}"):
+                    add_to_betting_list(row["match_id"], row["home_team"], row["away_team"], user_id, row['home_coeff'], row['away_coeff'])
+            with col2:
+                if st.button(f"Update Odds ({row['match_id']})", key=f"update_{row['match_id']}"):
+                    update_odds(row["match_id"])
+                    st.rerun()
