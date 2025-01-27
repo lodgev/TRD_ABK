@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 from decimal import Decimal
+from typing import List, Optional
+from datetime import datetime
 
 class BetCreate(BaseModel):
     user_id: str
@@ -18,6 +20,29 @@ class BetUpdate(BaseModel):
     coefficient: float = None
     potential_win: float = None
 
+class CombinedBetDetailCreate(BaseModel):
+    match_id: int
+    bet_type: str
+    selected_team: str
+    coefficient: Decimal
+
+class CombinedBetCreate(BaseModel):
+    user_id: str
+    total_amount: Decimal
+    details: List[CombinedBetDetailCreate]
+
+class CombinedBetResponse(BaseModel):
+    combined_bet_id: int
+    user_id: str
+    total_amount: Decimal
+    total_odds: Decimal
+    potential_win: Decimal
+    status: str
+    created_at: datetime
+    details: List[CombinedBetDetailCreate]
+
+    class Config:
+        orm_mode = True
 # class OddsUpdate(BaseModel):
 #     home_coeff: Decimal
 #     away_coeff: Decimal
