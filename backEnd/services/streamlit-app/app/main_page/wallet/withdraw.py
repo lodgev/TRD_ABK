@@ -5,6 +5,7 @@ API_BASE_URL_WITHDRAWAL = "http://withdrawal-service:80"
 API_BASE_URL_USAGE = "http://usage-service:80"
 
 def withdraw_funds():
+    st.divider()
     st.subheader("Withdraw Funds")
 
     if "user_id" not in st.session_state or st.session_state.user_id is None:
