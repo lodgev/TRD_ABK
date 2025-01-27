@@ -9,16 +9,6 @@ class ActionEnum(str, Enum):
     liked = "liked"
     disliked = "disliked"
 
-# Feedback models
-# class FeedbackBase(BaseModel):
-#     user_id: UUID
-#     news_id: UUID
-#     action: str
-#     rating: int | None = None
-
-# class FeedbackCreate(FeedbackBase):
-#     timestamp: datetime | None = None
-
 
 
 class FeedbackBase(BaseModel):

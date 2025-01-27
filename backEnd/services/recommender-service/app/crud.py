@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy.sql import text
 from . import models, schemas
 from app.models import UserAction
 from app.schemas import UserActionCreate
@@ -17,9 +18,13 @@ def recommend_articles(db: Session, user_id: UUID, top_n: int = 20):
     try:
         # Fetch feedback and bets for the user
         feedback = db.query(models.Feedback).filter(models.Feedback.user_id == user_id).all()
+        
         bets = db.execute(
-            "SELECT * FROM bets WHERE user_id = :user_id", {"user_id": user_id}
+            text("SELECT * FROM bets WHERE user_id = :user_id"), {"user_id": user_id}
         ).fetchall()
+        # bets = db.execute(
+        #     "SELECT * FROM bets WHERE user_id = :user_id", {"user_id": user_id}
+        # ).fetchall()
 
         # Convert bets to DataFrame to extract preferred teams
         bets_df = pd.DataFrame(bets)
