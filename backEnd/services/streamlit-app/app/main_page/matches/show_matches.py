@@ -7,7 +7,6 @@ API_BASE_URL_MATCHES = "http://match-service:80/matches"
 API_BASE_URL_BETTING = "http://betting-service:80/betts"
 API_BASE_URL_ODDS = "http://match-service:80/odds"
 
-
 def fetch_matches():
     try:
         response = requests.get(API_BASE_URL_MATCHES)
@@ -57,9 +56,10 @@ def add_to_betting_list(match_id, home_team, away_team, user_id, home_coeff, awa
 
 
     try:
+
         response = requests.post(f"{API_BASE_URL_BETTING}/create-bet", json=bet_payload)
         if response.status_code in [200, 201]:
-            st.success(f"The match has been successfully added to your betting list with default settings. You can modify the details in the Betts tab.")
+            st.success(f"The match has been successfully added to your betting list with default settings. You can modify the details in the Bets tab.")
         else:
             st.error(f"Failed to add Match ID {match_id} to betting list: {response.status_code}")
     except Exception as e:
