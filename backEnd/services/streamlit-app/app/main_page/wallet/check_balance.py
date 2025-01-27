@@ -38,7 +38,7 @@ def check_balance():
     response_wallet = requests.get(f"{API_BASE_URL}/wallet/user/{st.session_state.user_id}")
 
     if response_wallet.status_code == 200:
-        wallet_id = response_wallet.json().get("wallet_id")
+        wallet_id = response_wallet.json().get("id")
 
         # Получение баланса по ID кошелька
         response_balance = requests.get(f"{API_BASE_URL}/wallet/{wallet_id}")
