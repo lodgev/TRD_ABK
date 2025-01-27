@@ -1,15 +1,11 @@
 meta {
-  name: create new user
+  name: recuperer tous les utilisateurs
   type: http
-  seq: 4
+  seq: 2
 }
 
-post {
+get {
   url: http://localhost:6666/UserManagementService/users
   body: none
   auth: none
-}
-
-headers {
-  Content-Type: application/json
 }

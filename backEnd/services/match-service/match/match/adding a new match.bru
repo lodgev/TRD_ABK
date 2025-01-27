@@ -1,0 +1,28 @@
+meta {
+  name: adding a new match
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:8000/matches
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "home_team": "Real Madrid",
+    "home_score": 2,
+    "away_team": "Menchester United",
+    "away_score": 1,
+    "score_string": "2-1",
+    "match_date": "2025-01-26T15:00:00",
+    "home_coeff": 1.5,
+    "away_coeff": 2.3
+  }
+}

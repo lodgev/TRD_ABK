@@ -3,14 +3,8 @@ from sqlalchemy.orm import Session
 from app import crud, schemas, database
 
 
-router = APIRouter(prefix="/withdrawals", tags=["Withdrawals"])
+router = APIRouter(prefix="/withdrawal", tags=["Withdrawal"])
 
-# @router.post("/", response_model=schemas.TransactionResponse)
-# def create_withdrawal(withdrawal: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
-#     withdrawal_transaction = crud.create_withdrawal(db, withdrawal)
-#     if not withdrawal_transaction:
-#         raise HTTPException(status_code=400, detail="Withdrawal failed")
-#     return withdrawal_transaction
 
 @router.post("/", response_model=schemas.TransactionResponse)
 def create_withdrawal(withdrawal: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
@@ -20,12 +14,6 @@ def create_withdrawal(withdrawal: schemas.TransactionCreate, db: Session = Depen
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-# @router.post("/", response_model=schemas.TransactionResponse)
-# def create_withdrawal(withdrawal: schemas.TransactionCreate, db: Session = Depends(database.get_db)):
-#     try:
-#         return crud.create_withdrawal(db, withdrawal)
-#     except ValueError as e:
-#         raise HTTPException(status_code=400, detail=str(e))
 
 @router.get("/{wallet_id}", response_model=list[schemas.TransactionResponse])
 def get_withdrawals(wallet_id: int, db: Session = Depends(database.get_db)):

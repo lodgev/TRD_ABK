@@ -1,5 +1,5 @@
 # classes from db
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey
 from .database import Base
 
 class Club(Base):
@@ -27,3 +27,11 @@ class Match(Base):
     match_date = Column(Date, index=True)
     home_coeff = Column(Float, index=True)
     away_coeff = Column(Float, index=True)
+
+class Odds(Base):
+    __tablename__ = "odds"
+    match_id = Column(Integer, ForeignKey("matches.match_id"), primary_key=True)
+    home_win = Column(Float, nullable=False)
+    draw = Column(Float, nullable=False)
+    away_win = Column(Float, nullable=False)
+

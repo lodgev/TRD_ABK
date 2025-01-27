@@ -17,6 +17,7 @@ def get_match_details(match_id):
         return None
     
 # === update the bates after button "Place bet - confrim"
+# TODO update wallet
 def update_bet_status(bet_id, new_status):
     try:
         response = requests.put(f"{API_BASE_URL}/update-bet/{bet_id}", json={"status": new_status})
