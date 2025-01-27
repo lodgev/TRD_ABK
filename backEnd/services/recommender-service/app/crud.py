@@ -18,17 +18,15 @@ def recommend_articles(recommender_db: Session, betting_db: Session, user_id: UU
     try:
         # Fetch feedback and bets for the user
         feedback = recommender_db.query(models.Feedback).filter(models.Feedback.user_id == user_id).all()
-        
-        # bets = db.execute(
-        #     text("SELECT * FROM bets WHERE user_id = :user_id"), {"user_id": user_id}
-        # ).fetchall()
+
         bets = betting_db.query(models.Bet).filter(models.Bet.user_id == user_id).all()
-        # bets = db.execute(
-        #     "SELECT * FROM bets WHERE user_id = :user_id", {"user_id": user_id}
-        # ).fetchall()
 
         # Convert bets to DataFrame to extract preferred teams
-        bets_df = pd.DataFrame(bets)
+        if not bets:
+            logger.info("No bets or preferred teams found for user.")
+            return []
+
+        bets_df = pd.DataFrame([bet.__dict__ for bet in bets])
         if bets_df.empty or "selected_team" not in bets_df.columns:
             logger.info("No bets or preferred teams found for user.")
             return []

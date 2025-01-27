@@ -43,23 +43,6 @@ class SportNews(RecommenderBase):
 
 # ------------------
 
-class User(UserBase):
-    __tablename__ = "users"
-
-    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    email = Column(String, unique=True, index=True, nullable=False)
-    password = Column(String, nullable=False)
-    refreshtoken = Column(String)
-    createdat = Column(Time)
-    updatedat = Column(Time, nullable=True)
-    lastsigninat = Column(Time, nullable=True)
-    firstname = Column(String)
-    lastname = Column(String)
-    is_verified = Column(Boolean, default=False)
-    reset_token = Column(String)
-    reset_token_expiration = Column(Time)
-
-
 class Bet(BettingBase):
     __tablename__ = "bets"
 
@@ -138,3 +121,20 @@ class Odds(MatchBase):
     home_win = Column(Float, nullable=False)
     draw = Column(Float, nullable=False)
     away_win = Column(Float, nullable=False)
+
+
+class User(UserBase):
+    __tablename__ = "users"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    email = Column(String, unique=True, index=True, nullable=False)
+    password = Column(String, nullable=False)
+    refreshtoken = Column(String)
+    createdat = Column(Time)
+    updatedat = Column(Time, nullable=True)
+    lastsigninat = Column(Time, nullable=True)
+    firstname = Column(String)
+    lastname = Column(String)
+    is_verified = Column(Boolean, default=False)
+    reset_token = Column(String)
+    reset_token_expiration = Column(Time)

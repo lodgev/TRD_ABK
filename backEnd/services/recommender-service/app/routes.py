@@ -30,7 +30,6 @@ def create_feedback_entry(feedback: schemas.FeedbackCreate, db: Session = Depend
     return crud.create_feedback(db, feedback)
 
 @router.get("/recommendations/{user_id}")
-# def get_recommendations(user_id: UUID, db: Session = Depends(get_recommender_db)):
 def get_recommendations(user_id: UUID, recommender_db: Session = Depends(get_recommender_db),
                             betting_db: Session = Depends(get_betting_db)):
 
