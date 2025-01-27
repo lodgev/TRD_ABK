@@ -4,6 +4,8 @@ from app.main_page.matches.show_clubs import show_clubs
 from app.main_page.matches.show_matches import show_matches
 from app.main_page.bets.bet_main import run_main_bet
 from app.main_page.wallet.wallet_main import run_wallet_section
+from app.main_page.profile.profile_main import run_profile_section
+
 
 
 def run_main_app():
@@ -42,7 +44,7 @@ def run_main_app():
     elif main_mode == "Clubs":
         show_clubs() 
     elif main_mode == "Profile":
-        st.write("Profile section is in progress...")
+        run_profile_section()
     elif main_mode == "Betting":
         run_main_bet()
     elif main_mode == "Wallet":

@@ -16,6 +16,18 @@ def get_match_details(match_id):
         st.error(f"An error occurred while fetching match details: {e}")
         return None
     
+def get_odds_for_match(match_id):
+    try:
+        response = requests.get(f"{API_BASE_URL}/odds/{match_id}")
+        if response.status_code == 200:
+            return response.json()
+        else:
+            st.error(f"Failed to fetch odds for Match ID {match_id}: {response.status_code}")
+            return None
+    except Exception as e:
+        st.error(f"An error occurred while fetching odds: {e}")
+        return None
+
 # === update the bates after button "Place bet - confrim"
 # TODO update wallet
 def update_bet_status(bet_id, new_status):
@@ -40,8 +52,9 @@ def place_bet_page():
 
 # === get match details for selected betts
     match_details = get_match_details(selected_bet["match_id"])
-    if not match_details:
-        st.warning("Match details could not be fetched.")
+    odds = get_odds_for_match(selected_bet["match_id"])
+    if not match_details or not odds:
+        st.warning("Match or odds details could not be fetched.")
         st.button("Go Back", on_click=lambda: st.session_state.update({"current_page": "show_bets"}))
         st.rerun()
         return
@@ -50,11 +63,25 @@ def place_bet_page():
     st.write(f"Match: {match_details['home_team']} vs {match_details['away_team']}")
     st.write(f"Match Date: {match_details['match_date']}")
     st.write(f"Created At: {selected_bet.get('created_at', 'N/A')}")
+    st.markdown(
+        f"""
+        <p><b>Odds:</b></p>
+        <ul>
+            <li>Home Win: {odds['home_win']}</li>
+            <li>Draw: {odds['draw']}</li>
+            <li>Away Win: {odds['away_win']}</li>
+        </ul>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    selected_team = st.selectbox("Select Team", [match_details["home_team"], match_details["away_team"]])
-
-    coefficient = match_details["home_coeff"] if selected_team == match_details["home_team"] else match_details["away_coeff"]
-
+    selected_team = st.selectbox("Select Team", [match_details["home_team"], "Draw", match_details["away_team"]])
+    if selected_team == match_details["home_team"]:
+        coefficient = odds["home_win"]
+    elif selected_team == match_details["away_team"]:
+        coefficient = odds["away_win"]
+    else:
+        coefficient = odds["draw"]
     st.write(f"Coefficient: {coefficient}")
 
     amount = st.number_input("Bet Amount", min_value=1.0, value=selected_bet.get("amount", 1.0), step=1.0)

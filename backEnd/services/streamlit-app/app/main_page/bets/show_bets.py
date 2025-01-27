@@ -18,6 +18,16 @@ def fetch_bets(user_id):
         st.error(f"An error occurred while fetching bets: {e}")
         return []
 
+def fetch_odds(match_id):
+    try:
+        response = requests.get(f"{API_BASE_URL}/odds/{match_id}")
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return None
+    except:
+        return None
+
 def delete_bet(bet_id):
     """Delete a bet."""
     try:
@@ -54,15 +64,20 @@ def show_bets():
         else:
             for _, row in attent_bets.iterrows():
                 with st.container():
+                    odds = fetch_odds(row["match_id"])
+                    odds_text = (
+                        f"<p><b>Odds:</b> Home Win: {odds['home_win']}, Draw: {odds['draw']}, Away Win: {odds['away_win']}</p>"
+                        if odds
+                        else "<p><b>Odds:</b> Not available</p>"
+                    )
                     st.markdown(
                         f"""
                         <div style='border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin: 10px;'>
                             <h3>{row['selected_team']} ({row['bet_type']})</h3>
-                            <p><b>Match ID:</b> {row['match_id']}</p>
+                            {odds_text}
                             <p><b>Amount:</b> {row['amount']}</p>
                             <p><b>Potential Win:</b> {row['potential_win']}</p>
                             <p><b>Status:</b> {row['status']}</p>
-                            <p><b>Created At:</b> {row['created_at']}</p>
                         </div>
                         """,
                         unsafe_allow_html=True,
