@@ -14,14 +14,15 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def recommend_articles(db: Session, user_id: UUID, top_n: int = 20):
+def recommend_articles(recommender_db: Session, betting_db: Session, user_id: UUID, top_n: int = 20):
     try:
         # Fetch feedback and bets for the user
-        feedback = db.query(models.Feedback).filter(models.Feedback.user_id == user_id).all()
+        feedback = recommender_db.query(models.Feedback).filter(models.Feedback.user_id == user_id).all()
         
-        bets = db.execute(
-            text("SELECT * FROM bets WHERE user_id = :user_id"), {"user_id": user_id}
-        ).fetchall()
+        # bets = db.execute(
+        #     text("SELECT * FROM bets WHERE user_id = :user_id"), {"user_id": user_id}
+        # ).fetchall()
+        bets = betting_db.query(models.Bet).filter(models.Bet.user_id == user_id).all()
         # bets = db.execute(
         #     "SELECT * FROM bets WHERE user_id = :user_id", {"user_id": user_id}
         # ).fetchall()
@@ -35,7 +36,7 @@ def recommend_articles(db: Session, user_id: UUID, top_n: int = 20):
         preferred_teams = bets_df["selected_team"].unique()
 
         # Fetch all sport news from the database
-        sport_news = db.query(models.SportNews).all()
+        sport_news = recommender_db.query(models.SportNews).all()
 
         # Convert sport news to DataFrame
         news_df = pd.DataFrame([{
