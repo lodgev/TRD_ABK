@@ -1,5 +1,4 @@
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError
 from . import models, schemas
 from app.models import UserAction
 from app.schemas import UserActionCreate
@@ -14,7 +13,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def recommend_articles(db: Session, user_id: UUID, news_df: pd.DataFrame, top_n: int = 20):
+def recommend_articles(db: Session, user_id: UUID, top_n: int = 20):
     try:
         # Fetch feedback and bets for the user
         feedback = db.query(models.Feedback).filter(models.Feedback.user_id == user_id).all()
@@ -29,6 +28,24 @@ def recommend_articles(db: Session, user_id: UUID, news_df: pd.DataFrame, top_n:
             return []
 
         preferred_teams = bets_df["selected_team"].unique()
+
+        # Fetch all sport news from the database
+        sport_news = db.query(models.SportNews).all()
+
+        # Convert sport news to DataFrame
+        news_df = pd.DataFrame([{
+            "Team ID": news.team_id,
+            "News ID": news.news_id,
+            "Title": news.title,
+            "Image": news.image_url,
+            "Published Time": news.published_time,
+            "Source": news.source,
+            "URL": news.url,
+            "Content": news.content
+        } for news in sport_news])
+
+        # Preprocess the DataFrame
+        news_df = preprocess_data(news_df)
 
         # Filter articles about preferred teams
         preferred_articles = news_df[
@@ -74,7 +91,6 @@ def recommend_articles(db: Session, user_id: UUID, news_df: pd.DataFrame, top_n:
     except Exception as e:
         logger.error(f"Error recommending articles: {e}")
         return []
-
 
 
 # Feedback CRUD operations
@@ -141,67 +157,3 @@ def preprocess_data(news_df: pd.DataFrame) -> pd.DataFrame:
     news_df = news_df.dropna(subset=["Content", "Title"])
     news_df["Content"] = news_df["Content"].fillna("")
     return news_df
-
-
-def insert_sport_news_from_csv(db: Session, csv_file: str) -> dict:
-    """
-    Reads a CSV file, preprocesses it, and inserts the data into the sport_news table.
-    Verifies that the article is not already in the database.
-    
-    :param db: Database session.
-    :param csv_file: Path to the CSV file containing sport news articles.
-    :return: A dictionary with the result of the operation.
-    """
-    try:
-        # Load and preprocess data
-        news_df = pd.read_csv(csv_file, encoding="latin1")
-        news_df = preprocess_data(news_df)
-
-        # Iterate through the DataFrame rows and insert into the database
-        added_articles = 0
-        skipped_articles = 0
-        for _, row in news_df.iterrows():
-            # Check if the article already exists in the database
-            existing_article = (
-                db.query(models.SportNews)
-                .filter(models.SportNews.news_id == row["News ID"])
-                .first()
-            )
-
-            if existing_article:
-                skipped_articles += 1
-                continue
-
-            # Create a new SportNews instance
-            new_article = models.SportNews(
-                news_id=row["News ID"],
-                team_id=row["Team ID"],
-                title=row["Title"],
-                image_url=row["Image"] if not pd.isna(row["Image"]) else None,
-                published_time=pd.to_datetime(row["Published Time"]),
-                source=row["Source"],
-                url=row["URL"],
-                content=row["Content"],
-            )
-
-            db.add(new_article)
-            added_articles += 1
-
-        # Commit changes to the database
-        db.commit()
-        return {
-            "status": "success",
-            "added_articles": added_articles,
-            "skipped_articles": skipped_articles,
-        }
-
-    except FileNotFoundError:
-        return {"status": "error", "message": f"File {csv_file} not found."}
-    except pd.errors.EmptyDataError:
-        return {"status": "error", "message": "CSV file is empty or invalid."}
-    except IntegrityError as e:
-        db.rollback()
-        return {"status": "error", "message": f"Database integrity error: {str(e)}"}
-    except Exception as e:
-        db.rollback()
-        return {"status": "error", "message": f"An error occurred: {str(e)}"}

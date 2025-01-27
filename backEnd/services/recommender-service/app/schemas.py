@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from datetime import datetime
 from uuid import UUID
 from enum import Enum
+from typing import Union
 
 # Enum for action types
 class ActionEnum(str, Enum):
@@ -9,14 +10,26 @@ class ActionEnum(str, Enum):
     disliked = "disliked"
 
 # Feedback models
+# class FeedbackBase(BaseModel):
+#     user_id: UUID
+#     news_id: UUID
+#     action: str
+#     rating: int | None = None
+
+# class FeedbackCreate(FeedbackBase):
+#     timestamp: datetime | None = None
+
+
+
 class FeedbackBase(BaseModel):
     user_id: UUID
     news_id: UUID
     action: str
-    rating: int | None = None
+    rating: Union[int, None] = None  # Use Union[int, None] instead of int | None
 
 class FeedbackCreate(FeedbackBase):
-    timestamp: datetime | None = None
+    timestamp: Union[datetime, None] = None  # Use Union[datetime, None] instead of datetime | None
+
 
 class Feedback(FeedbackBase):
     id: int
@@ -45,15 +58,25 @@ class UserActionResponse(BaseModel):
         orm_mode = True
 
 # SportNews models
+# class SportNewsBase(BaseModel):
+#     team_id: int
+#     news_id: str
+#     title: str
+#     image_url: str | None = None
+#     published_time: datetime
+#     source: str
+#     url: str
+#     content: str | None = None
+
 class SportNewsBase(BaseModel):
     team_id: int
     news_id: str
     title: str
-    image_url: str | None = None
+    image_url: Union[str, None] = None  
     published_time: datetime
     source: str
     url: str
-    content: str | None = None
+    content: Union[str, None] = None  
 
 class SportNewsCreate(SportNewsBase):
     pass

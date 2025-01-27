@@ -5,13 +5,11 @@ import os
 
 # Define connection URLs for each database
 DATABASES = {
-    "recommender": f"postgresql+psycopg2://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@recommender-db/{os.getenv('POSTGRES_DB')}",
-    "user": f"postgresql+psycopg2://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@user-db/{os.getenv('POSTGRES_DB')}",
-    "match": f"postgresql+psycopg2://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@match-db/{os.getenv('POSTGRES_DB')}",
-    "betting": f"postgresql+psycopg2://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@betting-db/{os.getenv('POSTGRES_DB')}"
+    "recommender": f"postgresql+psycopg2://{os.getenv('RECOMMENDER_DB_USER')}:{os.getenv('RECOMMENDER_DB_PASSWORD')}@recommender-db/{os.getenv('RECOMMENDER_DB')}",
+    "user": f"postgresql+psycopg2://{os.getenv('USER_DB_USER')}:{os.getenv('USER_DB_PASSWORD')}@user-db/{os.getenv('USER_DB')}",
+    "match": f"postgresql+psycopg2://{os.getenv('MATCH_DB_USER')}:{os.getenv('MATCH_DB_PASSWORD')}@match-db/{os.getenv('MATCH_DB')}",
+    "betting": f"postgresql+psycopg2://{os.getenv('BETTING_DB_USER')}:{os.getenv('BETTING_DB_PASSWORD')}@betting-db/{os.getenv('BETTING_DB')}",
 }
-
-
 
 engine = create_engine(DATABASES["recommender"])
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
