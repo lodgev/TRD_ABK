@@ -89,7 +89,7 @@ def run_main_app():
 
     # Add "News" tab to the sidebar
     main_mode = st.sidebar.selectbox(
-        "Select an option", ["Matches", "Clubs", "Profile", "Betting", "Wallet", "News"]
+        "Select an option", ["Profile", "Wallet", "Matches", "Clubs", "Betting", "News"]
     )
 
     if main_mode == "Matches":

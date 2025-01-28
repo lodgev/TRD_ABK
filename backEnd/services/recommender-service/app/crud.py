@@ -8,7 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from uuid import UUID
 import logging
-from app.database import get_additional_db
+# from app.database import get_additional_db
 
 
 # Logger configuration
