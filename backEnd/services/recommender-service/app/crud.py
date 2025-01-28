@@ -15,23 +15,19 @@ from app.database import get_additional_db
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def recommend_articles(db: Session, user_id: UUID, top_n: int = 20):
+def recommend_articles(recommender_db: Session, betting_db: Session, user_id: UUID, top_n: int = 20):
     try:
         # Fetch feedback and bets for the user
-        feedback = db.query(models.Feedback).filter(models.Feedback.user_id == user_id).all()
-    
-        with next(get_additional_db("betting")) as betting_db:
-            bets = betting_db.execute(
-                text("SELECT * FROM bets WHERE user_id = :user_id"),
-                {"user_id": user_id}
-            ).fetchall()
-    
-        # bets = db.execute(
-        #     "SELECT * FROM bets WHERE user_id = :user_id", {"user_id": user_id}
-        # ).fetchall()
+        feedback = recommender_db.query(models.Feedback).filter(models.Feedback.user_id == user_id).all()
+
+        bets = betting_db.query(models.Bet).filter(models.Bet.user_id == user_id).all()
 
         # Convert bets to DataFrame to extract preferred teams
-        bets_df = pd.DataFrame(bets)
+        if not bets:
+            logger.info("No bets or preferred teams found for user.")
+            return []
+
+        bets_df = pd.DataFrame([bet.__dict__ for bet in bets])
         if bets_df.empty or "selected_team" not in bets_df.columns:
             logger.info("No bets or preferred teams found for user.")
             return []
@@ -39,7 +35,7 @@ def recommend_articles(db: Session, user_id: UUID, top_n: int = 20):
         preferred_teams = bets_df["selected_team"].unique()
 
         # Fetch all sport news from the database
-        sport_news = db.query(models.SportNews).all()
+        sport_news = recommender_db.query(models.SportNews).all()
 
         # Convert sport news to DataFrame
         news_df = pd.DataFrame([{
