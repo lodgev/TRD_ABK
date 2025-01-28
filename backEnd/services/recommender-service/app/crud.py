@@ -8,6 +8,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from uuid import UUID
 import logging
+from app.database import get_additional_db
 
 
 # Logger configuration
@@ -18,10 +19,13 @@ def recommend_articles(db: Session, user_id: UUID, top_n: int = 20):
     try:
         # Fetch feedback and bets for the user
         feedback = db.query(models.Feedback).filter(models.Feedback.user_id == user_id).all()
-        
-        bets = db.execute(
-            text("SELECT * FROM bets WHERE user_id = :user_id"), {"user_id": user_id}
-        ).fetchall()
+    
+        with next(get_additional_db("betting")) as betting_db:
+            bets = betting_db.execute(
+                text("SELECT * FROM bets WHERE user_id = :user_id"),
+                {"user_id": user_id}
+            ).fetchall()
+    
         # bets = db.execute(
         #     "SELECT * FROM bets WHERE user_id = :user_id", {"user_id": user_id}
         # ).fetchall()
@@ -162,3 +166,4 @@ def preprocess_data(news_df: pd.DataFrame) -> pd.DataFrame:
     news_df = news_df.dropna(subset=["Content", "Title"])
     news_df["Content"] = news_df["Content"].fillna("")
     return news_df
+
