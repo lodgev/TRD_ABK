@@ -11,7 +11,7 @@ This is a **sport betting application** built using a **microservices architectu
 
 -   **Manage their profile** 
 -   **View matches and odds**
--   **Place single and combined bets**
+-   **Place bets**
 -   **Manage transactions and wallets**
 -   **Read sports news**
 
@@ -92,7 +92,7 @@ Acts as the frontend and gateway for all services, providing the user interface 
 -   **Features:**
     -   User authentication and profile management
     -   Match listing with real-time odds
-    -   Single and combined bet creation
+    -   Bet creation
     -   Wallet and transaction management
 
 ### **Recommendation Service** (`recommender-service`)
@@ -159,11 +159,10 @@ Handles match listings, club information, and odds calculation.
 
 ### **Betting Service** (`betting-service`)
 
-Handles user bets, both **single and combined bets**.
+Handles user bets
 
 -   **Endpoints:**
     -   `POST /betts/create-bet` → Place a single bet
-    -   `POST /combined-betts/create-combined-bet` → Place a combined bet
     -   `GET /betts/get-all-bets` → Get all user bets
     -   `PUT /betts/update-bet/{bet_id}` → Update a bet
     -   `GET /betts/get-bet/{bet_id}` → Get a bet by ID
