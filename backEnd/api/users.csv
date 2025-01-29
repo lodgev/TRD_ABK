@@ -1,4 +1,0 @@
-    id,email,firstname,lastname,createdat
-    user1,user1@example.com,John,Doe,2025-01-01T12:00:00Z
-    user2,user2@example.com,Alice,Smith,2025-01-02T14:30:00Z
-    user3,user3@example.com,Bob,Johnson,2025-01-03T16:45:00Z

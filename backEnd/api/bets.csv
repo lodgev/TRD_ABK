@@ -1,4 +1,0 @@
-bet_id,user_id,match_id,bet_type,selected_team,amount,potential_win,coefficient,status,created_at
-1,user1,4621592,win,Juventus,50.0,100.0,2.0,won,2025-01-01T12:00:00Z
-2,user2,4621648,lose,Aston Villa,30.0,60.0,2.0,lost,2025-01-02T14:30:00Z
-3,user3,4621552,draw,Milan,20.0,40.0,2.0,pending,2025-01-03T16:45:00Z
