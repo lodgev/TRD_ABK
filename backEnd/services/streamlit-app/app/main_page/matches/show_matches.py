@@ -25,7 +25,7 @@ def fetch_odds(match_id):
         if response.status_code == 200:
             return response.json()
         else:
-            st.error(f"Failed to fetch odds for Match ID {match_id}: {response.status_code}")
+            # st.error(f"Failed to fetch odds for Match ID {match_id}: {response.status_code}")
             return None
     except Exception as e:
         st.error(f"An error occurred while fetching odds: {e}")

@@ -136,7 +136,7 @@ def update_wallet_balance(wallet_id, amount):
     try:
         response = requests.put(
             f"{API_WALLET_BASE_URL}/{wallet_id}/update-balance",
-            json={"amount": -amount}
+            json={"amount": amount}
         )
         if response.status_code == 200:
             return response.json()
@@ -146,6 +146,7 @@ def update_wallet_balance(wallet_id, amount):
     except Exception as e:
         st.error(f"An error occurred while updating wallet balance: {e}")
         return None
+
 
 
 def place_bet_page():
@@ -186,17 +187,14 @@ def place_bet_page():
 
     with col1:
         if st.button("Confirm"):
-            # Получаем кошелек пользователя
             wallet_response = requests.get(f"{API_WALLET_BASE_URL}/user/{st.session_state.user_id}")
             if wallet_response.status_code == 200:
                 wallet_id = wallet_response.json().get("id")
 
-                # Обновление баланса кошелька
-                balance_response = update_wallet_balance(wallet_id, amount)
+                balance_response = update_wallet_balance(wallet_id, -amount)
                 if balance_response:
                     st.success(f"Wallet updated. New balance: {balance_response['balance']} {balance_response['currency']}")
 
-                    # Обновление статуса ставки
                     bet_payload = {
                         "bet_type": bet_type,
                         "selected_team": selected_team,
@@ -222,11 +220,24 @@ def place_bet_page():
 
     with col2:
         if st.button("Cancel"):
-            update_bet_status(selected_bet["bet_id"], "waiting_list")
-            st.session_state["current_page"] = "show_bets"
-            st.rerun()
+            wallet_response = requests.get(f"{API_WALLET_BASE_URL}/user/{st.session_state.user_id}")
+            if wallet_response.status_code == 200:
+                wallet_id = wallet_response.json().get("id")
+
+                refund_response = update_wallet_balance(wallet_id, amount)
+                if refund_response:
+                    st.success(f"Wallet refunded. New balance: {refund_response['balance']} {refund_response['currency']}")
+
+                    update_bet_status(selected_bet["bet_id"], "waiting_list")
+                    st.session_state["current_page"] = "show_bets"
+                    st.rerun()
+                else:
+                    st.error("Failed to refund wallet balance.")
+            else:
+                st.error("Failed to fetch wallet information.")
 
     with col3:
         if st.button("Back"):
             st.session_state["current_page"] = "show_bets"
             st.rerun()
+

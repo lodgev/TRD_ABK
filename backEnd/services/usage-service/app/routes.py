@@ -22,7 +22,7 @@ def all_wallets(db: Session = Depends(get_wallet_db)):
 @router.get("/user/{user_id}")
 def get_wallet_id(user_id: uuid.UUID, db: Session = Depends(get_wallet_db)):
     try:
-        wallet = crud.get_wallet_id_by_user_id(db, user_id)
+        wallet = crud.get_wallet_by_user_id(db, str(user_id))
         return wallet
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
