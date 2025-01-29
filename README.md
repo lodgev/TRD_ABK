@@ -1,8 +1,10 @@
 
-# Sport Betting Microservices Application
+# Sport Betting Microservices Application - The Real Deal
 ### Authors : 
 Oleksandra KUKSA
+
 Olha ALIEINIK
+
 Doriane BEDIER
 
 ## Project Overview
