@@ -77,17 +77,35 @@ def cancel_match(db: Session, match_id: int):
 
 
 
+# def calculate_odds(elo_a: float, elo_b: float):
+#     prob_a = 1 / (1 + 10 ** ((elo_b - elo_a) / 400))
+#     prob_b = 1 - prob_a
+#     prob_draw = 0.20
+#     prob_a = prob_a * (1 - prob_draw)
+#     prob_b = prob_b * (1 - prob_draw)
+#
+#     return {
+#         "home_win": round(prob_a, 4),
+#         "draw": round(prob_draw, 4),
+#         "away_win": round(prob_b, 4)
+#     }
+
 def calculate_odds(elo_a: float, elo_b: float):
     prob_a = 1 / (1 + 10 ** ((elo_b - elo_a) / 400))
     prob_b = 1 - prob_a
     prob_draw = 0.20
+
     prob_a = prob_a * (1 - prob_draw)
     prob_b = prob_b * (1 - prob_draw)
 
+    odds_a = 1 / prob_a if prob_a > 0 else float('inf')
+    odds_draw = 1 / prob_draw if prob_draw > 0 else float('inf')
+    odds_b = 1 / prob_b if prob_b > 0 else float('inf')
+
     return {
-        "home_win": round(prob_a, 4),
-        "draw": round(prob_draw, 4),
-        "away_win": round(prob_b, 4)
+        "home_win": round(odds_a, 2),
+        "draw": round(odds_draw, 2),
+        "away_win": round(odds_b, 2)
     }
 
 def get_all_odds(db: Session):
