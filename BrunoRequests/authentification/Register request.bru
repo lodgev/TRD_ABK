@@ -1,0 +1,24 @@
+meta {
+  name: Register request
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:4444/auth/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "firstname": "Sasha",
+      "lastname": "Kuksa",
+      "email": "lodgev1@gmail.com",
+      "password": "1111"
+  }
+}

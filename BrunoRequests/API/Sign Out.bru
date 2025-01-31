@@ -1,0 +1,15 @@
+meta {
+  name: Sign Out
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:3000/auth/sign-out
+  body: json
+  auth: none
+}
+
+body:json {
+  {"refresh_token": "b69509ca142ad702759991a8d2e61feedf5091a613368665d69d26cd9652cab4"}
+}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "deposit",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

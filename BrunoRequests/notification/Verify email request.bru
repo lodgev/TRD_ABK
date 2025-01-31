@@ -1,0 +1,20 @@
+meta {
+  name: Verify email request
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8081/verify-email
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "recipient_email": "lodgev1@gmail.com",
+      "subject": "Email Verification",
+      "message": "Please verify your email by clicking the link."
+  }
+  
+}

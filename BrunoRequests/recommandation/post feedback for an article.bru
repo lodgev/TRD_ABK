@@ -1,0 +1,25 @@
+meta {
+  name: post feedback for an article
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:5555/feedback
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "user_id": "a9f5e723633d462c9ac3d6d80ac11a55",
+    "news_id": "017711C3984886C6BC2EE0BD8C7BCDFF",
+    "action": "rated",
+    "rating": 5
+  }
+  
+}

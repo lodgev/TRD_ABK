@@ -1,0 +1,28 @@
+meta {
+  name: Create bet request
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8001/betts/create-bet
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+  "user_id":"f928c455-d2f3-4e30-bf58-178ae041e8c2",
+  "match_id":4621592,
+  "bet_type":"win",
+  "selected_team":"Juventus",
+  "amount":0,
+  "coefficient":87,
+  "potential_win":0,
+  "status":"waiting_list"
+  }
+}

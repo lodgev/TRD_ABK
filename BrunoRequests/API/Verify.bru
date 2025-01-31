@@ -1,0 +1,22 @@
+meta {
+  name: Verify
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:3000/auth/verify
+  body: json
+  auth: none
+}
+
+body:json {
+  {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOm51bGwsImRhdGEiOnsiaWQiOiJjNjBhNmVmYi01N2I0LTQ3MDQtOGQ1OC01NzM5YTMyYWYwYTIifX0.emPTWdJN2cm1_FgEslIvJI-H_sK9vKjuEABjLLzZFQk"}
+}
+
+tests {
+  test("should return 200", function() {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(200);
+  });
+}

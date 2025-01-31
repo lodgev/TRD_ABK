@@ -1,0 +1,26 @@
+meta {
+  name: Me
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3000/auth/me
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOm51bGwsImRhdGEiOnsiaWQiOiJhYWRlZmUzOS1hZTE4LTQ2MzMtODgyZC05ZDM5ZWU2NzUwODcifX0.Gto9mN5BLLqSt8T-Q77yMAvHQyhYxLgr50SoBnT3nLs
+}
+
+body:json {
+  {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOm51bGwsImRhdGEiOnsiaWQiOiJhYWRlZmUzOS1hZTE4LTQ2MzMtODgyZC05ZDM5ZWU2NzUwODcifX0.Gto9mN5BLLqSt8T-Q77yMAvHQyhYxLgr50SoBnT3nLs"}
+}
+
+tests {
+  test("should return 200", function() {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(200);
+  });
+}

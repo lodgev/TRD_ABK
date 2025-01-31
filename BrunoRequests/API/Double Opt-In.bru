@@ -1,0 +1,26 @@
+meta {
+  name: Double Opt-In
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:3000/auth/double-opt-in?t=fe877d6fb59ff900c25ffeb6af619448cb83fc472e5059acd6eb22ec7db74957
+  body: none
+  auth: none
+}
+
+params:query {
+  t: fe877d6fb59ff900c25ffeb6af619448cb83fc472e5059acd6eb22ec7db74957
+}
+
+body:json {
+  {"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOm51bGwsImRhdGEiOnsiaWQiOiJhYWRlZmUzOS1hZTE4LTQ2MzMtODgyZC05ZDM5ZWU2NzUwODcifX0.Gto9mN5BLLqSt8T-Q77yMAvHQyhYxLgr50SoBnT3nLs"}
+}
+
+tests {
+  test("should return 200", function() {
+    const data = res.getBody();
+    expect(res.getStatus()).to.equal(200);
+  });
+}

@@ -1,0 +1,15 @@
+meta {
+  name: Cancel bet request
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:8001/betts/cancel-bet/8
+  body: none
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
