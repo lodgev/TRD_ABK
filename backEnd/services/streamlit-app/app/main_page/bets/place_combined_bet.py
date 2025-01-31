@@ -92,18 +92,22 @@ def place_combined_bet_page():
 
         st.markdown(
             f"""
-                           <p><b>Odds:</b></p>
-                           <ul>
-                               <li>Home Win: {odds['home_win']}</li>
-                               <li>Draw: {odds['draw']}</li>
-                               <li>Away Win: {odds['away_win']}</li>
-                           </ul>
-                           """,
+            <p><b>Odds:</b></p>
+            <ul>
+                <li>Home Win: {odds['home_win']}</li>
+                <li>Draw: {odds['draw']}</li>
+                <li>Away Win: {odds['away_win']}</li>
+            </ul>
+            """,
             unsafe_allow_html=True,
         )
 
+        bet_type = st.selectbox(
+            f"Bet Type (Bet {idx + 1})",
+            ["win", "lose", "draw"],
+            key=f"bet_type_{idx}"
+        )
 
-        # Display match and odds details
         selected_team = st.selectbox(
             f"Select Team (Bet {idx + 1})",
             [match_details["home_team"], "Draw", match_details["away_team"]],
@@ -118,7 +122,6 @@ def place_combined_bet_page():
             st.error(f"Duplicate bet detected: You already have a bet on the team '{selected_team}'.")
             continue
 
-            # Add to tracking sets
         seen_bets["matches"].add(bet["match_id"])
         seen_bets["teams"].add(selected_team)
 
@@ -129,17 +132,11 @@ def place_combined_bet_page():
         )
 
         st.write(f"Coefficient: {coefficient}")
-
         total_coefficient *= coefficient
-        bet_type = st.selectbox(
-            f"Bet Type (Bet {idx + 1})",
-            ["win", "lose", "draw"],
-            key=f"bet_type_{idx}"
-        )
 
         valid_bets.append({
             "match_id": bet["match_id"],
-            "bet_id": bet["bet_id"],  # Track bet ID to update status later
+            "bet_id": bet["bet_id"],
             "bet_type": bet_type,
             "selected_team": selected_team,
             "coefficient": coefficient
@@ -150,6 +147,14 @@ def place_combined_bet_page():
         return
 
     st.divider()
+
+    # Apply bonus if there are more than 5 bets
+    if len(valid_bets) > 5:
+        bonus_percentage = 10 + 2 * (len(valid_bets) - 5)
+        bonus_multiplier = 1 + (bonus_percentage / 100.0)
+        total_coefficient *= bonus_multiplier
+        st.info(f"A bonus of {bonus_percentage}% has been applied to your total coefficient!")
+
     total_amount = st.number_input("Total Amount for Combined Bet", min_value=1.0, step=1.0)
     potential_win = round(total_amount * total_coefficient, 2)
     st.write(f"Total Coefficient: {total_coefficient}")
@@ -199,57 +204,3 @@ def place_combined_bet_page():
             st.session_state["current_page"] = "show_bets"
             st.rerun()
 
-
-#
-# def place_combined_bet_page():
-#     st.title("Place Combined Bet")
-#
-#     selected_combined_bets = st.session_state.get("selected_combined_bets")
-#     if not selected_combined_bets:
-#         st.warning("No bets selected for a combined bet.")
-#         st.button("Go Back", on_click=lambda: st.session_state.update({"current_page": "show_bets"}))
-#         st.rerun()
-#         return
-#
-#     st.subheader("Selected Bets")
-#     for bet in selected_combined_bets:
-#         st.markdown(
-#             f"""
-#             <div style='border: 1px solid #ddd; border-radius: 5px; padding: 10px; margin: 10px;'>
-#                 <h3>{bet['selected_team']} ({bet['bet_type']})</h3>
-#                 <p><b>Match ID:</b> {bet['match_id']}</p>
-#                 <p><b>Coefficient:</b> {bet['coefficient']}</p>
-#             </div>
-#             """,
-#             unsafe_allow_html=True,
-#         )
-#
-#     total_amount = st.number_input("Total Amount for Combined Bet", min_value=1.0, step=1.0)
-#
-#     if st.button("Confirm Combined Bet"):
-#         combined_bet_data = {
-#             "user_id": st.session_state.user_id,
-#             "total_amount": total_amount,
-#             "details": [
-#                 {
-#                     "match_id": bet["match_id"],
-#                     "bet_type": bet["bet_type"],
-#                     "selected_team": bet["selected_team"],
-#                     "coefficient": bet["coefficient"],
-#                 }
-#                 for bet in selected_combined_bets
-#             ],
-#         }
-#
-#         # Send a request to create the combined bet
-#         response = requests.post(f"{API_BASE_URL_BETS}/create-combined-bet", json=combined_bet_data)
-#         if response.status_code in [200, 201]:
-#             st.success("Combined bet placed successfully!")
-#             st.session_state["current_page"] = "show_bets"
-#             st.rerun()
-#         else:
-#             st.error(f"Failed to place combined bet: {response.status_code} - {response.json().get('detail', '')}")
-#
-#     if st.button("Back"):
-#         st.session_state["current_page"] = "show_bets"
-#         st.rerun()
