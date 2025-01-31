@@ -1,3 +1,5 @@
+from uuid import UUID
+
 from pydantic import BaseModel
 from decimal import Decimal
 from typing import List, Optional
@@ -23,17 +25,19 @@ class BetUpdate(BaseModel):
 class CombinedBetDetailCreate(BaseModel):
     match_id: int
     bet_type: str
-    selected_team: str
-    coefficient: Decimal
+    # status: str = None
+    selected_team: str = None
+    coefficient: Decimal = None
+    potential_win: Decimal = None
 
 class CombinedBetCreate(BaseModel):
-    user_id: str
+    user_id: UUID
     total_amount: Decimal
     details: List[CombinedBetDetailCreate]
 
 class CombinedBetResponse(BaseModel):
     combined_bet_id: int
-    user_id: str
+    user_id: UUID
     total_amount: Decimal
     total_odds: Decimal
     potential_win: Decimal

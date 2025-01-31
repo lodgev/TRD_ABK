@@ -25,7 +25,6 @@ def fetch_odds(match_id):
         if response.status_code == 200:
             return response.json()
         else:
-            # st.error(f"Failed to fetch odds for Match ID {match_id}: {response.status_code}")
             return None
     except Exception as e:
         st.error(f"An error occurred while fetching odds: {e}")
@@ -131,6 +130,7 @@ def show_matches():
             col1, col2 = st.columns(2)
             with col1:
                 if st.button(f"Add to betting list ({row['match_id']})", key=f"add_{row['match_id']}"):
+                    update_odds(row["match_id"])
                     add_to_betting_list(row["match_id"], row["home_team"], row["away_team"], user_id, row['home_coeff'], row['away_coeff'])
             with col2:
                 if st.button(f"Update Odds ({row['match_id']})", key=f"update_{row['match_id']}"):
