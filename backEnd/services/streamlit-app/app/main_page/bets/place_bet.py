@@ -11,6 +11,7 @@ API_BASE_URL_WALLET = "http://usage-service:80/wallet"
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 def get_match_details(match_id):
     try:
         response = requests.get(f"{API_BASE_URL_MATCHES}/{match_id}")
@@ -23,6 +24,7 @@ def get_match_details(match_id):
         st.error(f"An error occurred while fetching match details: {e}")
         return None
 
+
 def get_odds_for_match(match_id):
     try:
         response = requests.get(f"{API_BASE_URL_ODDS}/{match_id}")
@@ -34,6 +36,7 @@ def get_odds_for_match(match_id):
         st.error(f"An error occurred while fetching odds: {e}")
         return None
 
+
 def update_bet_status(bet_id, new_status):
     try:
         response = requests.put(f"{API_BASE_URL_BETS}/update-bet/{bet_id}", json={"status": new_status})
@@ -43,6 +46,7 @@ def update_bet_status(bet_id, new_status):
             st.error(f"Failed to update bet status: {response.status_code} - {response.json().get('detail', '')}")
     except Exception as e:
         st.error(f"An error occurred while updating the bet: {e}")
+
 
 def update_wallet_balance(wallet_id, amount):
     try:
@@ -59,8 +63,8 @@ def update_wallet_balance(wallet_id, amount):
         st.error(f"An error occurred while updating wallet balance: {e}")
         return None
 
-def place_bet_page():
 
+def place_bet_page():
     st.title("Place Bet")
 
     selected_bet = st.session_state.get("selected_bet")
@@ -89,6 +93,7 @@ def place_bet_page():
     st.write(f"Match Date: {match_details['match_date']}")
     st.write(f"Created At: {selected_bet.get('created_at', 'N/A')}")
 
+    # Display odds
     st.markdown(
         f"""
         <p><b>Odds:</b></p>
@@ -101,18 +106,25 @@ def place_bet_page():
         unsafe_allow_html=True,
     )
 
-    selected_team = st.selectbox("Select Team", [match_details["home_team"], "Draw", match_details["away_team"]])
-    coefficient = odds["home_win"] if selected_team == match_details["home_team"] else odds["away_win"] if selected_team == match_details["away_team"] else odds["draw"]
+    # Select bet type and team
+    bet_type = st.selectbox("Bet Type", ["win", "lose", "draw"], key="bet_type")
+    selected_team = st.selectbox("Select Team", [match_details["home_team"], "Draw", match_details["away_team"]], key="selected_team")
+
+    if selected_team == match_details["home_team"]:
+        coefficient = odds["home_win"]
+    elif selected_team == match_details["away_team"]:
+        coefficient = odds["away_win"]
+    else:  # Draw
+        coefficient = odds["draw"]
 
     st.write(f"Coefficient: {coefficient}")
 
+    # Input amount and calculate potential win
     amount = st.number_input("Bet Amount", min_value=1.0, value=selected_bet.get("amount", 1.0), step=1.0)
-
     potential_win = round(amount * coefficient, 2)
     st.write(f"Potential Win: {potential_win}")
 
-    bet_type = st.selectbox("Bet Type", ["win", "lose", "draw"])
-
+    # Action buttons
     col1, col2, col3 = st.columns(3)
 
     with col1:
@@ -125,6 +137,7 @@ def place_bet_page():
                 if balance_response:
                     st.success(f"Wallet updated. New balance: {balance_response['balance']} {balance_response['currency']}")
 
+                    # Payload for updating the bet
                     bet_payload = {
                         "bet_type": bet_type,
                         "selected_team": selected_team,
@@ -150,23 +163,12 @@ def place_bet_page():
 
     with col2:
         if st.button("Cancel"):
-            wallet_response = requests.get(f"{API_BASE_URL_WALLET}/user/{st.session_state.user_id}")
-            if wallet_response.status_code == 200:
-                wallet_id = wallet_response.json().get("id")
-
-                refund_response = update_wallet_balance(wallet_id, amount)
-                if refund_response:
-                    st.success(f"Wallet refunded. New balance: {refund_response['balance']} {refund_response['currency']}")
-
-                    update_bet_status(selected_bet["bet_id"], "waiting_list")
-                    st.session_state["current_page"] = "show_bets"
-                    st.rerun()
-                else:
-                    st.error("Failed to refund wallet balance.")
-            else:
-                st.error("Failed to fetch wallet information.")
+            update_bet_status(selected_bet["bet_id"], "waiting_list")
+            st.session_state["current_page"] = "show_bets"
+            st.rerun()
 
     with col3:
         if st.button("Back"):
             st.session_state["current_page"] = "show_bets"
             st.rerun()
+

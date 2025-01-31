@@ -25,7 +25,7 @@ def create_combined_bet(db: Session, combined_bet_data: CombinedBetCreate):
         total_amount=combined_bet_data.total_amount,
         total_odds=final_odds,
         potential_win=potential_win,
-        status="waiting_list",  
+        status="pending",
         created_at="NOW()"     
     )
     db.add(new_combined_bet)
@@ -40,6 +40,7 @@ def create_combined_bet(db: Session, combined_bet_data: CombinedBetCreate):
             bet_type=leg.bet_type,
             selected_team=leg.selected_team,
             coefficient=leg.coefficient,
+            # status ="pending",
             created_at="NOW()"  # or datetime.now()
         )
         db.add(new_detail)

@@ -1,6 +1,8 @@
 import streamlit as st
 from app.main_page.bets.show_bets import show_bets
+from app.main_page.bets.place_combined_bet import place_combined_bet_page
 from app.main_page.bets.place_bet import place_bet_page
+
 
 def run_main_bet():
     
@@ -13,7 +15,10 @@ def run_main_bet():
         st.session_state.rerun_flag = False
         st.rerun()
 
-    if st.session_state["current_page"] == "place_bet":
+
+    if st.session_state["current_page"] == "place_combined_bet":
+        place_combined_bet_page()
+    elif st.session_state["current_page"] == "place_bet":
         place_bet_page()
     elif st.session_state["current_page"] == "show_bets":
         show_bets()
